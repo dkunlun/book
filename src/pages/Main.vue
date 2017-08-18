@@ -1,7 +1,7 @@
 <template>
 	<div class="main">
 		<!-- <div class="noData">书架空空的！快去添加点书吧！</div> -->
-		<div class="history">
+		<!-- <div class="history">
 			<h1 style="text-align: left;">最近搜索历史</h1>
 			<div class="list">
 				<div style="background:rgb(129, 145, 10);" class="tag">
@@ -12,49 +12,49 @@
 				</div>
 			</div>
 			<div class="clear">清空搜索历史</div>
-		</div>
-		<!-- <div class="list">
-			<a href="">
-				<div class="item">
-					<img src="../assets/images/error.jpg">
-					<p>
-						<span>龙王传说</span>
-						<br/>
-						<span>201124人在追 | 67.43%读者留存 | 唐家三少著</span>
-					</p>
-				</div>
-			</a>
-			<a href="">
-				<div class="item">
-					<img src="../assets/images/error.jpg">
-					<p>
-						<span>龙王传说</span>
-						<br/>
-						<span>201124人在追 | 67.43%读者留存 | 唐家三少著</span>
-					</p>
-				</div>
-			</a>
-			<a href="">
-				<div class="item">
-					<img src="../assets/images/error.jpg">
-					<p>
-						<span>龙王传说</span>
-						<br/>
-						<span>201124人在追 | 67.43%读者留存 | 唐家三少著</span>
-					</p>
-				</div>
-			</a>
-			<a href="">
-				<div class="item">
-					<img src="../assets/images/error.jpg">
-					<p>
-						<span>龙王传说</span>
-						<br/>
-						<span>201124人在追 | 67.43%读者留存 | 唐家三少著</span>
-					</p>
-				</div>
-			</a>
 		</div> -->
+		<div class="list">
+			<router-link to="/BookDetail">
+				<div class="item">
+					<img src="../assets/images/error.jpg">
+					<p>
+						<span>龙王传说</span>
+						<br/>
+						<span>201124人在追 | 67.43%读者留存 | 唐家三少著</span>
+					</p>
+				</div>
+			</router-link>
+			<a href="">
+				<div class="item">
+					<img src="../assets/images/error.jpg">
+					<p>
+						<span>龙王传说</span>
+						<br/>
+						<span>201124人在追 | 67.43%读者留存 | 唐家三少著</span>
+					</p>
+				</div>
+			</a>
+			<a href="">
+				<div class="item">
+					<img src="../assets/images/error.jpg">
+					<p>
+						<span>龙王传说</span>
+						<br/>
+						<span>201124人在追 | 67.43%读者留存 | 唐家三少著</span>
+					</p>
+				</div>
+			</a>
+			<a href="">
+				<div class="item">
+					<img src="../assets/images/error.jpg">
+					<p>
+						<span>龙王传说</span>
+						<br/>
+						<span>201124人在追 | 67.43%读者留存 | 唐家三少著</span>
+					</p>
+				</div>
+			</a>
+		</div>
 	</div>
 </template>
 
@@ -71,7 +71,7 @@
 		background: #fff;
 		height: calc(100vh - 64px);
 		text-align: center;
-		overflow: scroll;
+		overflow-y: scroll;
 		> .noData {
 			line-height: calc(100vh - 64px);
 			font-size: 1.2rem;

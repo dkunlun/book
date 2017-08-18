@@ -15,4 +15,5 @@ export default {
 <style lang="scss" rel="stylesheet/scss">
 
 @import "assets/style/index.scss";
+
 </style>

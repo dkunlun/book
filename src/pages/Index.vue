@@ -1,18 +1,16 @@
 <template>
 	<div class="page">
 		<DHeader></DHeader>
-		<DMain></DMain>
+		<router-view></router-view>
 	</div>
 </template>
 
 <script>
 	import DHeader from '/common/Header'
-	import DMain from './Main'
 
 	export default {
 		components: {
-			DHeader,
-			DMain
+			DHeader
 		}
 	}
 </script>

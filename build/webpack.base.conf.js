@@ -3,6 +3,7 @@ var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 
+
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -25,7 +26,7 @@ module.exports = {
       '@': resolve('src'),
       '/pages': resolve('src/pages'),
       '/common': resolve('src/common'),
-      '/assets': resolve('src/assets'),
+      '/assets': resolve('src/assets')
     }
   },
   module: {

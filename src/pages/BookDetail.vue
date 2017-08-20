@@ -3,13 +3,14 @@
 		<div class="info">
 			<img src="../assets/images/error.jpg">
 			<p>
-				<span class="name">龙王传说</span>
+				<span class="name">{{bookInfo.title}}</span>
 				<br>
 				<span class="author">
-					<em>唐家三少</em> | 东方玄幻 | 320万字
+					<em>{{bookInfo.author}}</em> | {{bookInfo.cat}} | {{bookInfo.wordCount}}
 				</span>
 				<span>
-					3小时前更新
+					<!-- 3小时前更新 -->
+					{{bookInfo.updated}}
 				</span>
 			</p>
 		</div>
@@ -27,41 +28,49 @@
 			<p>
 				<span>追书人数</span>
 				<br>
-				200647
+				{{bookInfo.latelyFollower}}
 			</p>
 			<p>
 				<span>读者留存率</span>
 				<br>
-				67.09%
+				{{bookInfo.retentionRatio}}%
 			</p>
 			<p>
 				<span>日更新字数</span>
 				<br>
-				5227
+				{{bookInfo.serializeWordCount}}
 			</p>
 		</div>
 		<div class="tags">
-			<div class="tag" style="background-color: rgb(219, 162, 6);">
-				<span class="tag-text">玄幻</span>
-			</div>
-			<div class="tag" style="background-color: rgb(219, 162, 6);">
-				<span class="tag-text">玄幻</span>
+			<div class="tag" style="background-color: rgb(219, 162, 6);" v-for="item in bookInfo.tags">
+				<span class="tag-text">{{item}}</span>
 			</div>
 		</div>
 		<div class="description">
-			<pre>伴随着魂导科技的进步，斗罗大陆上的人类征服了海洋，又发现了两片大陆。魂兽也随着人类魂师的猎杀无度走向灭亡，沉睡无数年的魂兽之王在星斗大森林最后的净土苏醒，它要带领仅存的族人，向人类复仇！
-			唐舞麟立志要成为一名强大的魂师，可当武魂觉醒时，苏醒的，却是……
-			旷世之才，龙王之争，我们的龙王传说，将由此开始。</pre>
+			<pre>{{bookInfo.longIntro}}</pre>
 		</div>
 	</div>
 </template>
 
 <script>
+	import { mapGetters, mapActions } from 'vuex'
 	export default {
-		methods: {
-			toReader () {
-				this.$router.push({name: 'Reader'})
+		data() {
+			return {
+				id: this.$route.params.id
 			}
+		},
+		computed: mapGetters([
+			'bookInfo'
+		]),
+		methods: {
+			...mapActions(['bookDetail']),
+			toReader () {
+				this.$router.push({name: 'Reader', params: {id: this.id}})
+			}
+		},
+		created () {
+			this.bookDetail(this.id);
 		}
 	}
 </script>

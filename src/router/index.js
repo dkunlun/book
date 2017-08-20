@@ -6,6 +6,7 @@ const Index = resolve => require(['/pages/Index'], resolve)
 const BookDetail = resolve => require(['/pages/BookDetail'], resolve)
 const Main = resolve => require(['/pages/Main'], resolve)
 const Reader = resolve => require(['/pages/Reader'], resolve)
+const ChangeSource = resolve => require(['/pages/ChangeSource'], resolve)
 
 Vue.use(Router)
 
@@ -17,12 +18,14 @@ export default new Router({
       redirect: '/Main',
       component: Index,
       children: [
-      	{path: '/BookDetail', component: BookDetail},
-      	{path: '/Main', component: Main}
+      	{path: '/BookDetail/:id', name: 'BookDetail', component: BookDetail},
+        {path: '/Main', name:'Main', component: Main},
+        {path: '/ChangeSource', name:'ChangeSource', component: ChangeSource},
+      	{path: '/Search', name:'Search', component: Main},
       ]
     },
     {
-    	path: '/Reader',
+    	path: '/Reader/:id',
     	name: 'Reader',
     	component: Reader
     }

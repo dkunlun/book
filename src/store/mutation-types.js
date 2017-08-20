@@ -1,0 +1,5 @@
+export const SEARCH = 'SEARCH'
+export const BOOKDETAIL = 'BOOKDETAIL'
+export const GETSOURCE = 'GETSOURCE'
+export const GETCATALOG = 'GETCATALOG'
+export const GETCONTENT = 'GETCONTENT'

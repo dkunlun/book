@@ -1,65 +1,47 @@
 <template>
 	<div class="main">
-		<!-- <div class="noData">书架空空的！快去添加点书吧！</div> -->
-		<!-- <div class="history">
+		<div class="noData" v-if="currentName === 'Main'">书架空空的！快去添加点书吧！</div>
+		<div class="history" v-if="currentName === 'Search' && searchList.length === 0">
 			<h1 style="text-align: left;">最近搜索历史</h1>
 			<div class="list">
 				<div style="background:rgb(129, 145, 10);" class="tag">
-					<span class="ant-tag-text">龙王传说</span>
+					<span class="tag-text">龙王传说</span>
 				</div>
 				<div style="background:rgb(129, 145, 10);" class="tag">
-					<span class="ant-tag-text">龙王传说</span>
+					<span class="tag-text">龙王传说</span>
 				</div>
 			</div>
 			<div class="clear">清空搜索历史</div>
-		</div> -->
+		</div>
 		<div class="list">
-			<router-link to="/BookDetail">
+			<router-link :to="{name: 'BookDetail', params: { id: item._id }}" v-for="(item, index) in searchList" :key="item._id">
 				<div class="item">
-					<img src="../assets/images/error.jpg">
+					<!-- <img src="../assets/images/error.jpg"> -->
+					<img :src="'http://statics.zhuishushenqi.com' + item.cover">
 					<p>
-						<span>龙王传说</span>
+						<span>{{item.title}}</span>
 						<br/>
-						<span>201124人在追 | 67.43%读者留存 | 唐家三少著</span>
+						<span>{{item.latelyFollower}}人在追 | {{item.retentionRatio}}%读者留存 | {{item.author}}著</span>
 					</p>
 				</div>
 			</router-link>
-			<a href="">
-				<div class="item">
-					<img src="../assets/images/error.jpg">
-					<p>
-						<span>龙王传说</span>
-						<br/>
-						<span>201124人在追 | 67.43%读者留存 | 唐家三少著</span>
-					</p>
-				</div>
-			</a>
-			<a href="">
-				<div class="item">
-					<img src="../assets/images/error.jpg">
-					<p>
-						<span>龙王传说</span>
-						<br/>
-						<span>201124人在追 | 67.43%读者留存 | 唐家三少著</span>
-					</p>
-				</div>
-			</a>
-			<a href="">
-				<div class="item">
-					<img src="../assets/images/error.jpg">
-					<p>
-						<span>龙王传说</span>
-						<br/>
-						<span>201124人在追 | 67.43%读者留存 | 唐家三少著</span>
-					</p>
-				</div>
-			</a>
 		</div>
 	</div>
 </template>
 
 <script>
+	import { mapGetters } from 'vuex'
+
 	export default {
+		props: {
+			currentName: {
+				type: String,
+				default: 'Main'
+			}
+		},
+		computed: mapGetters([
+			'searchList'
+		]),
 		components: {
 			
 		}

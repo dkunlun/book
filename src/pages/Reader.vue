@@ -10,7 +10,7 @@
 		</div>
 		<div class="container"  @click="toggleSetting" :style="settingStyle">
 			<h1>{{content.title}}</h1>
-			<pre>{{content.body}}</pre>
+			<pre>{{content.cpContent || content.body}}</pre>
 			<h1>
 				<span>上一章</span>
 				<span>下一章</span>
@@ -103,7 +103,7 @@
 		created() {
 			let id = this.$route.params.id
 			this.getSource(id).then((res) => {
-				let sourceId = this.sourceList[1]._id
+				let sourceId = this.sourceList[0]._id
 				this.sourceId = sourceId
 				return this.getCatalog(sourceId)
 			}).then(() => {

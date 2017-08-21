@@ -44,8 +44,7 @@
 		},
 		computed: {
 			...mapGetters([
-				'searchList',
-				'counter'
+				'searchList'
 			]),
 			keyword: {
 				get () {

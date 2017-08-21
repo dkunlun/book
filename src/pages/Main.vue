@@ -4,14 +4,14 @@
 		<div class="history" v-if="currentName === 'Search' && searchList.length === 0">
 			<h1 style="text-align: left;">最近搜索历史</h1>
 			<div class="list">
-				<div style="background:rgb(129, 145, 10);" class="tag">
-					<span class="tag-text">龙王传说</span>
-				</div>
-				<div style="background:rgb(129, 145, 10);" class="tag">
-					<span class="tag-text">龙王传说</span>
+				<div style="background:rgb(129, 145, 10);" class="tag" v-for="item in history" @click="searchFromTag(item)">
+					<span class="tag-text">{{item}}</span>
 				</div>
 			</div>
-			<div class="clear">清空搜索历史</div>
+			<div class="clear" @click="clearHistory">
+				<i class="icon icon-delete"></i>
+				清空搜索历史
+			</div>
 		</div>
 		<div class="list">
 			<router-link :to="{name: 'BookDetail', params: { id: item._id }}" v-for="(item, index) in searchList" :key="item._id">
@@ -30,7 +30,8 @@
 </template>
 
 <script>
-	import { mapGetters } from 'vuex'
+	import { mapGetters, mapMutations, mapActions } from 'vuex'
+	import { setStorage } from '../utils/storage'
 
 	export default {
 		props: {
@@ -39,9 +40,24 @@
 				default: 'Main'
 			}
 		},
-		computed: mapGetters([
-			'searchList'
-		]),
+		methods: {
+			...mapActions(['search']),
+			...mapMutations(['SETHISTORY', 'SETKEYWORD']),
+			clearHistory () {
+				setStorage('history', [])
+				this.SETHISTORY([])
+			},
+			searchFromTag (keyword) {
+				this.search(keyword)
+				this.SETKEYWORD(keyword)
+			}
+		},
+		computed: {
+			...mapGetters([
+				'searchList',
+				'history'
+			])
+		},
 		components: {
 			
 		}

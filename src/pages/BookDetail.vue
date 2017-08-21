@@ -151,6 +151,7 @@
 			border-bottom: 1px solid #e1e1e2;
 			align-items: flex-start;
 		    align-content: flex-start;
+		    flex-wrap: wrap;
 		    div {
 	    	    opacity: .6;
 	    	    margin-bottom: 10px;

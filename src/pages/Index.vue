@@ -1,7 +1,9 @@
 <template>
 	<div class="page">
-		<DHeader :currentName="currentName"></DHeader>
-		<router-view :currentName="currentName"></router-view>
+		<DHeader :currentName="currentName" :info="info"></DHeader>
+		<keep-alive>
+			<router-view :currentName="currentName"></router-view>
+		</keep-alive>
 	</div>
 </template>
 
@@ -11,17 +13,19 @@
 	export default {
 		data () {
 			return {
-				currentName: 'Main'
+				currentName: 'Main',
+				info: '阅读'
 			}
 		},
 		components: {
 			DHeader
 		},
 		beforeRouteEnter (to, from, next) {
-		  next(vm => {
-		    // 通过 `vm` 访问组件实例
-		    vm.currentName = to.name
-		  })
+			next(vm => {
+				// 通过 `vm` 访问组件实例
+				vm.currentName = to.name
+				vm.info = to.meta.name || ''
+			})
 		},
 		beforeRouteUpdate (to, from, next) {
 			// 在当前路由改变，但是该组件被复用时调用
@@ -29,6 +33,8 @@
 			// 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
 			// 可以访问组件实例 `this`
 			this.currentName = to.name
+			this.info = to.meta.name || ''
+			console.log(this.info)
 			next(vm => {
 			})
 		},

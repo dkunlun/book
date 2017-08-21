@@ -1,14 +1,14 @@
 <template>
 	<div>
 		<div class="header" v-show="showSetting">
-			<a href="">
+			<a href="javascript: void(0);" @click="back">
 				<i class="icon icon-left"></i>
 			</a>
-			<router-link to="/ChangeSource">
+			<router-link :to="{name: 'ChangeSource', params: {id: sourceId}}">
 				<span>换源</span>
 			</router-link>
 		</div>
-		<div class="container"  @click="toggleSetting" style="font-size: 18px;background-color: rgb(196, 196, 196);">
+		<div class="container"  @click="toggleSetting" :style="settingStyle">
 			<h1>{{content.title}}</h1>
 			<pre>{{content.body}}</pre>
 			<h1>
@@ -17,19 +17,17 @@
 			</h1>
 		</div>
 		<div class="footer" v-show="showSetting">
-			<div>
+			<div @click="toggleColor">
 				<i class="icon icon-setting"></i>
 				<br>
 				设置
-				<div class="color">
+				<div class="color" v-show="showColor" @click.stop="stop">
 					<div>
-						<span>Aa -</span>
-						<span>Aa +</span>
+						<span @click="changFontSize('sub')">Aa -</span>
+						<span @click="changFontSize('add')">Aa +</span>
 					</div>
 					<div>
-						<i style="background-color: rgb(196, 196, 196);"></i>
-						<i style="background-color: rgb(162, 157, 137);"></i>
-						<i style="background-color: rgb(173, 200, 169);"></i>
+						<i v-for="item in colorList" :style="{background: item}" @click="changColor(item)"></i>
 					</div>
 				</div>
 			</div>
@@ -56,7 +54,18 @@
 		data () {
 			return {
 				visible: false,
-				showSetting: false
+				showSetting: false,
+				showColor: false,
+				colorList: [
+					'rgb(196, 196, 196)', 
+					'rgb(162, 157, 137)', 
+					'rgb(173, 200, 169)'
+				],
+				settingStyle: {
+					fontSize: '18px',
+					backgroundColor: 'rgb(196, 196, 196)'
+				},
+				sourceId: ''
 			}
 		},
 		computed: {
@@ -69,16 +78,37 @@
 			},
 			toggleSetting () {
 				this.showSetting = !this.showSetting
+			},
+			back () {
+				this.$router.go(-1)
+			},
+			toggleColor () {
+				this.showColor = !this.showColor
+			},
+			stop () {
+
+			},
+			changColor (color) {
+				this.settingStyle.backgroundColor = color;
+			},
+			changFontSize (type) {
+				var number = Number(this.settingStyle.fontSize.substr(0, 2))
+				if(type == 'add') {
+					this.settingStyle.fontSize = number + 1 + 'px'
+				} else {
+					this.settingStyle.fontSize = number - 1 + 'px'
+				}
 			}
 		},
 		created() {
 			let id = this.$route.params.id
 			this.getSource(id).then((res) => {
-				let sourceId = this.sourceList[4]._id
-				this.getCatalog(sourceId).then(() => {
-					let link = this.catalog[0].link
-					this.getContent(link)
-				})
+				let sourceId = this.sourceList[1]._id
+				this.sourceId = sourceId
+				return this.getCatalog(sourceId)
+			}).then(() => {
+				let link = this.catalog[0].link
+				this.getContent(link)
 			})
 		},
 		components: {

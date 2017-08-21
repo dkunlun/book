@@ -3,7 +3,9 @@ import {
 	BOOKDETAIL,
 	GETSOURCE,
 	GETCATALOG,
-	GETCONTENT
+	GETCONTENT,
+	SETHISTORY,
+	SETKEYWORD
 } from './mutation-types'
 
 export default {
@@ -21,5 +23,11 @@ export default {
 	},
 	[GETCONTENT] (state, content) {
 		state.content = content
+	},
+	[SETHISTORY] (state, history) {
+		state.history = history
+	},
+	[SETKEYWORD] (state, keyword) {
+		state.keyword = keyword
 	}
 }

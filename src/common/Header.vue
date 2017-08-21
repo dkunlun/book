@@ -1,18 +1,18 @@
 <template>
 	<div>
 		<header>
-			<span class="back" v-if="currentName === 'Search' || currentName === 'BookDetail'">
+			<span class="back" v-if="['Search', 'BookDetail', 'ChangeSource'].indexOf(currentName) !== -1">
 				<i class="icon icon-left" @click="back"></i>
 			</span>
 			<span class="search" v-if="currentName === 'Search'">
-				<input type="text" class="input" v-model="keyword" placeholder="请输入搜索的书名" @keyup.enter="search(keyword)">
-				<span class="input-suffix">
+				<input type="text" class="input" v-model="keyword" placeholder="请输入搜索的书名" @keyup.enter="searchBook">
+				<span class="input-suffix" v-show="keyword.length !== 0" @click="clear">
 					<i class="icon icon-close-circle"></i>
 				</span>
 			</span>
-			<i class="icon icon-search search-button" @click="search(keyword)" v-if="currentName === 'Search'"></i>
+			<i class="icon icon-search search-button" @click="searchBook" v-if="currentName === 'Search'"></i>
+			<span class="name" v-if="['Main', 'BookDetail', 'ChangeSource'].indexOf(currentName) !== -1">{{info}}</span>
 			<template v-if="currentName === 'Main'">
-				<span class="name">阅读{{currentName}}</span>
 				<img src="../assets/images/menu.png"  class="dropdown">
 				<router-link :to="{name: 'Search'}">
 					<i class="icon icon-search toSearch"></i>
@@ -24,34 +24,70 @@
 
 <script>
 	import axios from 'axios'
-	import { mapGetters, mapActions } from 'vuex'
+	import { mapGetters, mapActions, mapMutations } from 'vuex'
+	import { setStorage, getStorage } from '../utils/storage'
+
 	export default {
 		data () {
 			return {
-				keyword: ''
 			}
 		},
 		props: {
 			currentName: {
 				type: String,
 				default: 'Main'
+			},
+			info: {
+				type: String,
+				default: '阅读'
 			}
 		},
-		computed: mapGetters([
-			'searchList',
-			'counter'
-		]),
+		computed: {
+			...mapGetters([
+				'searchList',
+				'counter'
+			]),
+			keyword: {
+				get () {
+					return this.$store.state.keyword
+				},
+				set (value) {
+					this.$store.commit('SETKEYWORD', value)
+				}
+			}
+		},
 		methods: {
 			...mapActions([
 				'search',
 				'add'
 			]),
+			...mapMutations(['SEARCH', 'SETHISTORY']),
 			back () {
 				this.$router.go(-1)
+			},
+			searchBook () {
+				let keyword = this.keyword
+				if(!keyword.trim()) {
+					alert('不能输入空格哦！')
+					return false
+				}
+				this.search(keyword)
+
+				var history = JSON.parse(getStorage('history')) || []
+				if(history.indexOf(keyword) === -1) history.push(keyword)
+				setStorage('history', history)
+				this.SETHISTORY(history)
+			},
+			getHistory () {
+
+			},
+			clear () {
+				this.keyword = '';
+				this.SEARCH([]);
 			}
 		},
 		mounted () {
-			console.log(1)
+			// console.log(this.$store)
 		}
 	}
 </script>
@@ -71,6 +107,7 @@
 		.name {
 			color: #fff;
 			font-size: 1.5rem;
+			margin-left: 20px;
 		}
 		i {
 			float: right;

@@ -1,53 +1,29 @@
 <template>
 	<div class="container">
 		<ul>
-			<li>
-				<h1>优质书源
-				<div class="tag" style="background-color: rgb(255, 85, 0);float: right;color: #fff;font-size: 12px;">
+			<li v-for="item in sourceList">
+				<h1>{{item.name}}
+				<div v-if="item._id === sourceId" class="tag" style="background-color: rgb(255, 85, 0);float: right;color: #fff;font-size: 12px;">
 					<span>当前书源</span>
 				</div>
 				</h1>
-				<p>7小时前:第1242章 有伤风化！</p>
-			</li>
-			<li>
-				<h1>优质书源</h1>
-				<p>7小时前:第1242章 有伤风化！</p>
-			</li>
-			<li>
-				<h1>优质书源</h1>
-				<p>7小时前:第1242章 有伤风化！</p>
-			</li>
-			<li>
-				<h1>优质书源</h1>
-				<p>7小时前:第1242章 有伤风化！</p>
-			</li>
-			<li>
-				<h1>优质书源</h1>
-				<p>7小时前:第1242章 有伤风化！</p>
-			</li>
-			<li>
-				<h1>优质书源</h1>
-				<p>7小时前:第1242章 有伤风化！</p>
-			</li>
-			<li>
-				<h1>优质书源</h1>
-				<p>7小时前:第1242章 有伤风化！</p>
-			</li>
-			<li>
-				<h1>优质书源</h1>
-				<p>7小时前:第1242章 有伤风化！</p>
-			</li>
-			<li>
-				<h1>优质书源</h1>
-				<p>7小时前:第1242章 有伤风化！</p>
+				<p>{{item.updated}}:{{item.lastChapter}}</p>
 			</li>
 		</ul>
 	</div>
 </template>
 
 <script>
+	import { mapGetters } from 'vuex'
 	export default {
-
+		data () {
+			return {
+				sourceId: this.$route.params.id
+			}
+		},
+		computed: {
+			...mapGetters(['sourceList'])
+		}
 	}
 </script>
 

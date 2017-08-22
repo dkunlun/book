@@ -20,7 +20,7 @@ export default new Router({
       children: [
       	{path: '/Main/BookDetail/:id', name: 'BookDetail', component: BookDetail, meta: {name: '书籍详情'}},
         {path: '/Main', name:'Main', component: Main, meta: {name: '阅读'}},
-        {path: '/Main/ChangeSource/:id', name:'ChangeSource', component: ChangeSource, meta: {name: '换源'}},
+        {path: '/Main/ChangeSource', name:'ChangeSource', component: ChangeSource, meta: {name: '换源'}},
       	{path: '/Main/Search', name:'Search', component: Main},
       ]
     },

@@ -2,10 +2,12 @@ import {
 	SEARCH,
 	BOOKDETAIL,
 	GETSOURCE,
-	GETCATALOG,
+	GETCHAPTERLIST,
 	GETCONTENT,
 	SETHISTORY,
-	SETKEYWORD
+	SETKEYWORD,
+	SETCURRENTSOURCE,
+	SETCURRENTCHAPTER
 } from './mutation-types'
 
 export default {
@@ -18,8 +20,8 @@ export default {
 	[GETSOURCE] (state, list) {
 		state.sourceList = list
 	},
-	[GETCATALOG] (state, list) {
-		state.catalog = list
+	[GETCHAPTERLIST] (state, list) {
+		state.chapterList = list
 	},
 	[GETCONTENT] (state, content) {
 		state.content = content
@@ -29,5 +31,11 @@ export default {
 	},
 	[SETKEYWORD] (state, keyword) {
 		state.keyword = keyword
+	},
+	[SETCURRENTSOURCE] (state, source) {
+		state.currentSource = source
+	},
+	[SETCURRENTCHAPTER] (state, chapter) {
+		state.currentChapter = chapter
 	}
 }

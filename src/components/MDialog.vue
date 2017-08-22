@@ -4,7 +4,7 @@
 		<div class="modal-wrapper" @click="close">
 			<div class="dialog-container">
 				<div>
-					<p v-for="(item, index) in catalog" :class="{choosed: currentChapter == index}" @click="changeChapter(item.link, index)">{{item.title}}</p>
+					<p v-for="(item, index) in chapterList" :class="{choosed: currentChapter == index}" @click="changeChapter(item.link, index)">{{item.title}}</p>
 				</div>
 			</div>
 		</div>
@@ -12,16 +12,16 @@
 </template>
 
 <script>
-	import { mapGetters, mapActions } from 'vuex'
+	import { mapGetters, mapActions, mapMutations } from 'vuex'
 	export default {
 		name: 'MDialog',
 		data () {
 			return {
-				currentChapter: 0
+				
 			}
 		},
 		computed: {
-			...mapGetters(['catalog'])
+			...mapGetters(['chapterList', 'currentChapter'])
 		},
 		props: {
 			visible: {
@@ -36,11 +36,14 @@
 		},
 		methods: {
 			...mapActions(['getContent']),
+			...mapMutations(['SETCURRENTCHAPTER']),
 			close () {
 				this.$emit('update:visible', false)
 			},
 			changeChapter (link, index) {
-				this.currentChapter = index
+				this.SETCURRENTCHAPTER({
+					num: index
+				})
 				this.getContent(link)
 			}
 		},

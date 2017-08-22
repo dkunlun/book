@@ -1,9 +1,9 @@
 <template>
 	<div class="container">
 		<ul>
-			<li v-for="item in sourceList">
+			<li v-for="item in sourceList" @click="changeSource(item)">
 				<h1>{{item.name}}
-				<div v-if="item._id === sourceId" class="tag" style="background-color: rgb(255, 85, 0);float: right;color: #fff;font-size: 12px;">
+				<div v-if="item._id === currentSource._id" class="tag" style="background-color: rgb(255, 85, 0);float: right;color: #fff;font-size: 12px;">
 					<span>当前书源</span>
 				</div>
 				</h1>
@@ -14,15 +14,28 @@
 </template>
 
 <script>
-	import { mapGetters } from 'vuex'
+	import { mapGetters, mapActions,mapMutations } from 'vuex'
 	export default {
 		data () {
 			return {
 				sourceId: this.$route.params.id
 			}
 		},
+		methods: {
+			...mapActions(['getChapterList', 'getContent']),
+			...mapMutations(['SETCURRENTSOURCE']),
+			changeSource (source) {
+				this.SETCURRENTSOURCE(source)
+				this.getChapterList(source._id).then(() => {
+					let link = this.chapterList[this.currentChapter.num].link;
+					return this.getContent(link)
+				}).then(() => {
+					this.$router.go(-1)
+				})
+			}
+		},
 		computed: {
-			...mapGetters(['sourceList'])
+			...mapGetters(['sourceList', 'currentSource', 'currentChapter', 'chapterList'])
 		}
 	}
 </script>

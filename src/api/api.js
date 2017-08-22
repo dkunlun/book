@@ -24,7 +24,7 @@ const getSource = (id) => {
 	})
 }
 
-const getCatalog = (id) => {
+const getChapterList = (id) => {
 	return axios.get('/api/toc/' + id, {
 		params: {
 			view: 'chapters'
@@ -44,6 +44,6 @@ export {
 	search,
 	bookDetail,
 	getSource,
-	getCatalog,
+	getChapterList,
 	getContent
 }

@@ -4,7 +4,7 @@
 			<a href="javascript: void(0);" @click="back">
 				<i class="icon icon-left"></i>
 			</a>
-			<router-link :to="{name: 'ChangeSource', params: {id: sourceId}}">
+			<router-link :to="{name: 'ChangeSource'}">
 				<span>换源</span>
 			</router-link>
 		</div>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-	import { mapGetters, mapActions } from 'vuex'
+	import { mapGetters, mapActions, mapMutations } from 'vuex'
 	import MDialog from '@/components/MDialog'
 
 	export default {
@@ -64,15 +64,15 @@
 				settingStyle: {
 					fontSize: '18px',
 					backgroundColor: 'rgb(196, 196, 196)'
-				},
-				sourceId: ''
+				}
 			}
 		},
 		computed: {
-			...mapGetters(['sourceList', 'catalog', 'content'])
+			...mapGetters(['sourceList', 'chapterList', 'content', 'currentSource'])
 		},
 		methods: {
-			...mapActions(['getSource', 'getCatalog', 'getContent']),
+			...mapActions(['getSource', 'getChapterList', 'getContent']),
+			...mapMutations(['SETCURRENTSOURCE', 'SETCURRENTCHAPTER']),
 			showList () {
 				this.visible = true;
 			},
@@ -102,14 +102,19 @@
 		},
 		created() {
 			let id = this.$route.params.id
-			this.getSource(id).then((res) => {
-				let sourceId = this.sourceList[0]._id
-				this.sourceId = sourceId
-				return this.getCatalog(sourceId)
-			}).then(() => {
-				let link = this.catalog[0].link
-				this.getContent(link)
-			})
+			if(this.sourceList.length === 0) {
+				this.getSource(id).then((res) => {
+					let source = this.sourceList[0]
+					this.SETCURRENTSOURCE(source)
+					return this.getChapterList(source._id)
+				}).then(() => {
+					let chapter = this.chapterList[0]
+					this.SETCURRENTCHAPTER({
+						num: 0
+					})
+					this.getContent(chapter.link)
+				})
+			}
 		},
 		components: {
 			MDialog

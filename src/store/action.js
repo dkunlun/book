@@ -19,9 +19,9 @@ const getSource = ({ commit }, id) => {
 	})
 }
 
-const getCatalog = ({ commit }, id) => {
-	return api.getCatalog(id).then((res) => {
-		commit(type.GETCATALOG, res.chapters)
+const getChapterList = ({ commit }, id) => {
+	return api.getChapterList(id).then((res) => {
+		commit(type.GETCHAPTERLIST, res.chapters)
 	})
 }
 
@@ -35,6 +35,6 @@ export {
 	search,
 	bookDetail,
 	getSource,
-	getCatalog,
+	getChapterList,
 	getContent
 }

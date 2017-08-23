@@ -57,9 +57,6 @@
 				'searchList',
 				'history'
 			])
-		},
-		components: {
-			
 		}
 	}
 </script>

@@ -7,6 +7,7 @@ const BookDetail = resolve => require(['/pages/BookDetail'], resolve)
 const Main = resolve => require(['/pages/Main'], resolve)
 const Reader = resolve => require(['/pages/Reader'], resolve)
 const ChangeSource = resolve => require(['/pages/ChangeSource'], resolve)
+const Category = resolve => require(['/pages/Category'], resolve)
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
     	path: '/Reader/:id',
     	name: 'Reader',
     	component: Reader
+    },
+    {
+      path: '/Category',
+      name: 'Category',
+      component: Category
     }
   ]
 })

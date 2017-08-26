@@ -1,0 +1,146 @@
+<template>
+	<div class="main">
+		<div class="noData" v-if="currentName === 'Main'">书架空空的！快去添加点书吧！</div>
+		<div class="history" v-if="currentName === 'Search' && searchList.length === 0">
+			<h1 style="text-align: left;">最近搜索历史</h1>
+			<div class="list">
+				<div style="background:rgb(129, 145, 10);" class="tag" v-for="item in history" @click="searchFromTag(item)">
+					<span class="tag-text">{{item}}</span>
+				</div>
+			</div>
+			<div class="clear" @click="clearHistory">
+				<i class="icon icon-delete"></i>
+				清空搜索历史
+			</div>
+		</div>
+		<div class="list">
+			<router-link :to="{name: 'BookDetail', params: { id: item._id }}" v-for="(item, index) in searchList" :key="item._id">
+				<div class="item">
+					<!-- <img src="../assets/images/error.jpg"> -->
+					<img :src="'http://statics.zhuishushenqi.com' + item.cover">
+					<p>
+						<span>{{item.title}}</span>
+						<br/>
+						<span>{{item.latelyFollower}}人在追 | {{item.retentionRatio}}%读者留存 | {{item.author}}著</span>
+					</p>
+				</div>
+			</router-link>
+		</div>
+	</div>
+</template>
+
+<script>
+	import { mapGetters, mapMutations, mapActions } from 'vuex'
+	import { setStorage } from '../utils/storage'
+
+	export default {
+		props: {
+			currentName: {
+				type: String,
+				default: 'Main'
+			}
+		},
+		methods: {
+			...mapActions(['search']),
+			...mapMutations(['SETHISTORY', 'SETKEYWORD']),
+			clearHistory () {
+				setStorage('history', [])
+				this.SETHISTORY([])
+			},
+			searchFromTag (keyword) {
+				this.search(keyword)
+				this.SETKEYWORD(keyword)
+			}
+		},
+		computed: {
+			...mapGetters([
+				'searchList',
+				'history'
+			])
+		}
+	}
+</script>
+
+<style lang="scss" scoped>
+	.main {
+		background: #fff;
+		height: calc(100vh - 64px);
+		text-align: center;
+		overflow-y: scroll;
+		> .noData {
+			line-height: calc(100vh - 64px);
+			font-size: 1.2rem;
+			font-weight: 700;
+		}
+		.item {
+			height: 80px;
+			border-bottom: 1px solid #e1e1e2;
+			padding: 10px 15px;
+			cursor: pointer;
+			img {
+				height: 60px;
+				width: 45px;
+			}
+			p {
+				float: right;
+				text-align: left;
+				width: calc(100% - 60px);
+				height: 80px;
+				span {
+					&:first-child {
+						font-size: 1.1rem;
+						font-weight: 700;
+						color: #595959;
+					}
+					&:last-child {
+						font-size: .8rem;
+						color: #b6b6b6;
+					}
+					white-space: nowrap;
+					width: 100%;
+					display: inline-block;
+					overflow: hidden;
+					height: 30px;
+				}
+			}
+		}
+		.history {
+			padding: 20px 10px;
+		}
+		h1 {
+			font-size: 1rem;
+		}
+		.clear {
+			text-align: center;
+			margin-top: 40px;
+			font-size: 1rem;
+		}
+		.history .list {
+			padding: 10px 15px;
+			display: flex;
+			flex-wrap: wrap;
+			align-items: flex-start;
+			align-content: flex-start;
+			.tag {
+				display: inline-block;
+				line-height: 20px;
+				height: 22px;
+				padding: 0 8px;
+				border-radius: 4px;
+				border: 1px solid #e9e9e9;
+				background: #f7f7f7;
+				font-size: 12px;
+				transition: all .3s cubic-bezier(.78,.14,.15,.86);
+				opacity: 1;
+				margin-right: 8px;
+				cursor: pointer;
+				white-space: nowrap;
+				border-color: transparent;
+				color: #fff;
+				opacity: .6;
+				margin-bottom: 10px;
+				font-size: .9rem;
+			}
+		}
+	}
+</style>

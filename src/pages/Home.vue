@@ -26,5 +26,11 @@
 </script>
 
 <style lang="scss" scoped>
-	
+	.tab-container {
+		box-sizing: border-box;
+		min-height: 100vh;
+		padding-top: 2rem;
+		padding-bottom: 55px;
+		width: 100vw;
+	}
 </style>

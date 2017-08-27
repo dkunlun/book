@@ -8,6 +8,7 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import store from './store'
 
+Vue.use(MintUI)
 
 axios.interceptors.request.use(function (config) {
 	// Do something before request is sent

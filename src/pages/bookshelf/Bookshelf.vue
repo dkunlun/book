@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<mt-button type="primary" class="add-book">
+		<mt-button type="primary">
 			添加小说
 		</mt-button>
 	</div>
@@ -13,7 +13,5 @@
 </script>
 
 <style lang="scss" scoped>
-	.add-book {
-		// position: absolute;
-	}
+	
 </style>

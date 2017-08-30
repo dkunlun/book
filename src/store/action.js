@@ -31,6 +31,12 @@ const getContent = ({ commit }, id) => {
 	})
 }
 
+const getCategoryList = ({ commit }) => {
+	return api.getContent().then((res) => {
+		commit(type.GETCATEGORYLIST, res)
+	})
+}
+
 export {
 	search,
 	bookDetail,

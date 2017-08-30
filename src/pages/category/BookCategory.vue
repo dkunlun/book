@@ -1,70 +1,43 @@
 <template>
 	<div>
-		<section>
-			<p class="category-type">男生</p>
+		<section v-for="(item, key, index) in category" :key="index">
+			<p class="category-type">{{categoryType[key]}}</p>
 			<ul>
-				<li>
-					<p class="category">玄幻</p>
-					<span class="book-count">464477</span>
-				</li>
-				<li>
-					<p>玄幻</p>
-					<span>464477</span>
-				</li>
-				<li>
-					<p>玄幻</p>
-					<span>464477</span>
-				</li>
-			</ul>
-		</section>
-		<section>
-			<p class="category-type">男生</p>
-			<ul>
-				<li>
-					<p>玄幻</p>
-					<span class="book-count">464477</span>
-				</li>
-				<li>
-					<p>玄幻</p>
-					<span>464477</span>
-				</li>
-				<li>
-					<p>玄幻</p>
-					<span>464477</span>
-				</li>
-			</ul>
-		</section>
-		<section>
-			<p class="category-type">男生</p>
-			<ul>
-				<li>
-					<p>玄幻</p>
-					<span class="book-count">464477</span>
-				</li>
-				<li>
-					<p>玄幻</p>
-					<span>464477</span>
-				</li>
-				<li>
-					<p>玄幻</p>
-					<span>464477</span>
+				<li v-for="(cat, index) in item" :key="index" @click="toBookCatDetail(key, cat)">
+					<p class="category">{{cat.name}}</p>
+					<span class="book-count">{{cat.bookCount}}</span>
 				</li>
 			</ul>
 		</section>
 	</div>
 </template>
 <script>
+	import { mapActions,mapGetters } from 'vuex'
+	import { getCategoryList } from '../../api/api'
 	export default {
 		data () {
 			return {
 				category: null,
 				categoryType: {
-
+					male: '男生',
+					female: '女生',
+					press: '出版',
+			        picture: '类型'
 				}
 			}
 		},
+		methods: {
+			getCategoryList () {
+				getCategoryList().then(res => {
+					this.category = res;
+				})
+			},
+			toBookCatDetail (key, cat) {
+				this.$router.push({path: '/bookCat/detail', query: {gender: key,major:cat.name}})
+			}
+		},
 		created () {
-			
+			this.getCategoryList()
 		}
 	}
 </script>

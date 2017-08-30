@@ -24,3 +24,5 @@ export const removeStorage = name => {
   if (!name) return
   window.localStorage.removeItem(name)
 }
+
+export const staticPath = 'http://statics.zhuishushenqi.com'

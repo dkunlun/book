@@ -3,10 +3,19 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import VueTouch from 'vue-touch'
 import axios from 'axios'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import store from './store'
+
+VueTouch.config.swipe = {
+  direction: 'horizontal'
+}
+
+Vue.use(VueTouch, {
+  name: 'v-touch'
+})
 
 Vue.use(MintUI)
 

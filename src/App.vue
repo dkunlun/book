@@ -16,5 +16,7 @@ export default {
 	@import "assets/style/index.scss";
 	#app {
 		font-family: Avenir,Helvetica,Arial,sans-serif;
+		display: flex;
+		align-items: center;
 	}
 </style>

@@ -1,5 +1,9 @@
 import axios from 'axios'
-
+/**
+ * 根据关键字搜索小说
+ * @param  {string}
+ * @return {promise}
+ */
 const search = (keyword) => {
 	return axios.get('/api/book/fuzzy-search', {
 		params: {
@@ -8,7 +12,11 @@ const search = (keyword) => {
 		}
 	})
 }
-
+/**
+ * 根据小说id获取小说详情
+ * @param  {string}
+ * @return {promise}
+ */
 const bookDetail = (id) => {
 	return axios.get('/api/book/' + id, {
 		
@@ -31,6 +39,7 @@ const getChapterList = (id) => {
 		}
 	})
 }
+
 const getContent = (link) => {
 	return axios.get('/chapter/' + link, {
 		params: {
@@ -40,10 +49,35 @@ const getContent = (link) => {
 	})
 }
 
+const getCategoryList = () => {
+	return axios.get('/api/cats/lv2/statistics')
+}
+
+const getCategoryDetail = () => {
+	return axios.get('/api/cats/lv2')
+}
+
+const getNovelListByCat = (gender, type, major, minor = '', start = 0, limit = 20) => {
+	return axios.get('/api/book/by-categories', {
+		params: {
+			gender: gender,
+			type: type,
+			major: major,
+			minor: minor,
+			start: start,
+			limit: limit
+		}
+	})
+}
+
+
 export {
 	search,
 	bookDetail,
 	getSource,
 	getChapterList,
-	getContent
+	getContent,
+	getCategoryList,
+	getCategoryDetail,
+	getNovelListByCat
 }

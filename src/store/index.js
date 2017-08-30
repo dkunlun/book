@@ -19,7 +19,8 @@ const state = {
 	history: JSON.parse(getStorage('history')) || [],
 	keyword: '',
 	currentSource: {}, //当前书源
-	currentChapter: {} //当前章节
+	currentChapter: {}, //当前章节
+	categoryList: {} //分类列表
 }
 
 const getters = {
@@ -31,7 +32,8 @@ const getters = {
 	history: state => state.history,
 	keyword: state => state.keyword,
 	currentSource: state => state.currentSource,
-	currentChapter: state => state.currentChapter
+	currentChapter: state => state.currentChapter,
+	categoryList: state => state.categoryList
 }
 
 

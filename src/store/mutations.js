@@ -7,7 +7,8 @@ import {
 	SETHISTORY,
 	SETKEYWORD,
 	SETCURRENTSOURCE,
-	SETCURRENTCHAPTER
+	SETCURRENTCHAPTER,
+	GETCATEGORYLIST
 } from './mutation-types'
 
 export default {
@@ -37,5 +38,8 @@ export default {
 	},
 	[SETCURRENTCHAPTER] (state, chapter) {
 		state.currentChapter = chapter
+	},
+	[GETCATEGORYLIST] (state, list) {
+		state.categoryList = list
 	}
 }

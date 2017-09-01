@@ -1,5 +1,5 @@
 <template>
-	<li @click="getBook()">
+	<li @click="toBook()">
 		<img :src="imgUrl">
 		<div class="book-info">
 			<p class="book-title">{{book.title}}</p>
@@ -29,8 +29,8 @@
 			}
 		},
 		methods: {
-			getBook () {
-				// this.$router.push('/book/' + this.book._id)
+			toBook () {
+				this.$router.push('/book/' + this.book._id)
 			}
 		}
 	}

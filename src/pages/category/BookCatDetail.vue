@@ -24,7 +24,7 @@
 
 <script>
 	import { getCategoryDetail,getNovelListByCat } from '../../api/api'
-	import BookList from '../book/bookList'
+	import BookList from '../book/BookList'
 	import { Indicator } from 'mint-ui'
 
 	export default {
@@ -87,10 +87,16 @@
 			setType (type, index) {
 				this.majorSelected = index
 				this.type = type
+				getNovelListByCat(this.gender, this.type, this.major, this.minor).then(res => {
+					this.books = res.books
+				})
 			},
 			setMinor (minor, index) {
 				this.minorSelected = index
 				this.minor = minor
+				getNovelListByCat(this.gender, this.type, this.major, this.minor).then(res => {
+					this.books = res.books
+				})
 			}
 		},
 		beforeRouteEnter (to, from, next) {

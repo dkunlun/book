@@ -4,18 +4,12 @@
 			<span class="search-icon">
 				<img src="../../assets/images/search.svg">
 			</span>
-			<input type="text" class="search-input" placeholder="输入书名或者作者名">
+			<input type="text" class="search-input" placeholder="输入书名或者作者名" v-model="searchKey" @input="autoComplete" @keyup.enter="search">
 		</div>
-		<div class="search-info">
+		<div class="search-info" v-show="!searchKey">
 			<ul class="search-word">
-				<v-touch class="search-hot-word" tag="li">
-					重生
-				</v-touch>
-				<v-touch class="search-hot-word" tag="li">
-					重生
-				</v-touch>
-				<v-touch class="search-hot-word" tag="li">
-					重生
+				<v-touch class="search-hot-word" tag="li" v-for="(searchHotWord, index) in searchHotWords" :key="index" @tap="search">
+					{{searchHotWord.word}}
 				</v-touch>
 			</ul>
 			<div class="search-history">
@@ -31,28 +25,24 @@
 					</v-touch>
 				</ul>
 			</div>
-
-			<!-- <ul class="auto-complete-list">
-				<v-touch tag="li">
-					龙王传说
-				</v-touch>
-				<v-touch tag="li">
-					龙王传说
-				</v-touch>
-				<v-touch tag="li">
-					龙王传说
-				</v-touch>
-			</ul> -->
-
-			<ul class="search-result">
-				<!-- <BookList></BookList> -->
-			</ul>
 		</div>
+
+		<ul class="auto-complete-list" v-if="autoCompleteList.length && searchKey">
+			<v-touch tag="li" v-for="(item, index) in autoCompleteList" :key="index" @tap="search">
+				{{item}}
+			</v-touch>
+		</ul>
+
+		<ul class="search-result" v-if="searchResult.length">
+			<BookList v-for="book in searchResult" :book="book" :key="book._id"></BookList>
+		</ul>
 	</div>
 </template>
 
 <script>
+	import { autoComplete,getHotWords,search } from '../../api/api'
 	import BookList from '../book/BookList'
+	import { Indicator } from 'mint-ui'
 
 	export default {
 		data () {
@@ -66,6 +56,43 @@
 		},
 		components: {
 			BookList
+		},
+		watch: {
+			'searchKey': function () {
+				if(!this.searchKey) {
+					this.autoCompleteList = []
+					this.searchResult = []
+				}
+			}
+		},
+		methods: {
+			autoComplete () {
+				autoComplete(this.searchKey).then(res => {
+					this.autoCompleteList = res.keywords;
+				}).catch(err => {
+					console.log(err)
+				})
+			},
+			search (el) {
+				this.searchKey = el.target.innerText || this.searchKey
+				Indicator.open()
+				search(this.searchKey).then(res => {
+					this.searchResult = res.books
+					this.autoCompleteList = []
+					Indicator.close()
+				}).catch(err => {
+					console.log(err)
+				})
+			}
+		},
+		created () {
+			getHotWords().then(res => {
+				this.searchHotWords = res.searchHotWords
+				//只取前15个热词
+				this.searchHotWords.length = 15
+			}).catch(err => {
+				console.log(err)
+			})
 		}
 	}
 </script>

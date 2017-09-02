@@ -70,6 +70,23 @@ const getNovelListByCat = (gender, type, major, minor = '', start = 0, limit = 2
 	})
 }
 
+/**
+ * 获取热词
+ */
+const getHotWords = () => {
+	return axios.get('/api/book/search-hotwords')
+}
+
+
+/**
+ * 自动搜索补充
+ * @param {String} searchKey 关键字
+ * http://api05iye5.zhuishushenqi.com/book/auto-complete?query=%E6%96%97%E7%BD%97
+ */
+const autoComplete = (searchKey) => {
+	return axios.get('/api/book/auto-complete?query=' + searchKey)
+}
+
 
 export {
 	search,
@@ -79,5 +96,7 @@ export {
 	getContent,
 	getCategoryList,
 	getCategoryDetail,
-	getNovelListByCat
+	getNovelListByCat,
+	autoComplete,
+	getHotWords
 }

@@ -18,5 +18,6 @@ export default {
 		font-family: Avenir,Helvetica,Arial,sans-serif;
 		display: flex;
 		align-items: center;
+		font-size: 1rem;
 	}
 </style>

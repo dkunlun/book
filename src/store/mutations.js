@@ -8,7 +8,8 @@ import {
 	SETKEYWORD,
 	SETCURRENTSOURCE,
 	SETCURRENTCHAPTER,
-	GETCATEGORYLIST
+	GETCATEGORYLIST,
+	SETBACKPOSITION
 } from './mutation-types'
 
 export default {
@@ -41,5 +42,8 @@ export default {
 	},
 	[GETCATEGORYLIST] (state, list) {
 		state.categoryList = list
+	},
+	[SETBACKPOSITION] (state, position) {
+		state.previousPosition = position
 	}
 }

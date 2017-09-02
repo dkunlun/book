@@ -26,6 +26,7 @@
 	import { getCategoryDetail,getNovelListByCat } from '../../api/api'
 	import BookList from '../book/BookList'
 	import { Indicator } from 'mint-ui'
+	import { mapMutations } from 'vuex'
 
 	export default {
 		data () {
@@ -60,6 +61,7 @@
 			BookList
 		},
 		methods: {
+			...mapMutations(['SETBACKPOSITION']),
 			getNovelListByCat (gender, type, major, minor) {
 				Indicator.open('加载中')
 				getNovelListByCat(gender, type, major, minor).then (res => {
@@ -113,6 +115,7 @@
 				})
 
 				vm.getNovelListByCat(vm.$route.query.gender, vm.type, vm.$route.query.major)
+				vm.SETBACKPOSITION('分类')
 			})
 		}
 	}

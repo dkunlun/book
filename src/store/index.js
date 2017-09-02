@@ -20,7 +20,8 @@ const state = {
 	keyword: '',
 	currentSource: {}, //当前书源
 	currentChapter: {}, //当前章节
-	categoryList: {} //分类列表
+	categoryList: {}, //分类列表
+	previousPosition: '书架',
 }
 
 const getters = {
@@ -33,7 +34,8 @@ const getters = {
 	keyword: state => state.keyword,
 	currentSource: state => state.currentSource,
 	currentChapter: state => state.currentChapter,
-	categoryList: state => state.categoryList
+	categoryList: state => state.categoryList,
+	previousPosition: state => state.previousPosition
 }
 
 

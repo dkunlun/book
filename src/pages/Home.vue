@@ -8,16 +8,17 @@
 			</mt-tab-container-item>
 			<mt-tab-container-item id="分类">
 				<mt-header fixed :title="selected"></mt-header>
-				<keep-alive>
+				<keep-alive include="Bookshelf">
 					<BookCategory class="tab-container"></BookCategory>
 				</keep-alive>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="排行">
 				<mt-header fixed :title="selected"></mt-header>
-				<keep-alive>
+				<keep-alive include="Rank">
 				</keep-alive>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="搜索">
+				<Search></Search>
 			</mt-tab-container-item>
 		</mt-tab-container>
 		<mt-tabbar :fixed="true" v-model="selected">
@@ -40,6 +41,7 @@
 <script>
 	import Bookshelf from '/pages/bookshelf/Bookshelf'
 	import BookCategory from '/pages/category/BookCategory'
+	import Search from '/pages/search/Search'
 
 	export default {
 		data () {
@@ -49,7 +51,11 @@
 		},
 		components: {
 			Bookshelf,
-			BookCategory
+			BookCategory,
+			Search
+		},
+		mounted () {
+			this.selected = this.$store.state.previousPosition
 		}
 	}
 </script>

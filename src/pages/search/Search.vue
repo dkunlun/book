@@ -43,6 +43,7 @@
 	import { autoComplete,getHotWords,search } from '../../api/api'
 	import BookList from '../book/BookList'
 	import { Indicator } from 'mint-ui'
+	import { mapMutations } from 'vuex'
 
 	export default {
 		data () {
@@ -66,6 +67,7 @@
 			}
 		},
 		methods: {
+			...mapMutations(['SETBACKPOSITION']),
 			autoComplete () {
 				autoComplete(this.searchKey).then(res => {
 					this.autoCompleteList = res.keywords;
@@ -79,6 +81,7 @@
 				search(this.searchKey).then(res => {
 					this.searchResult = res.books
 					this.autoCompleteList = []
+					this.SETBACKPOSITION('搜索')
 					Indicator.close()
 				}).catch(err => {
 					console.log(err)

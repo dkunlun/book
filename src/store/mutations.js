@@ -9,7 +9,8 @@ import {
 	SETCURRENTSOURCE,
 	SETCURRENTCHAPTER,
 	GETCATEGORYLIST,
-	SETBACKPOSITION
+	SETBACKPOSITION,
+	SETRANK
 } from './mutation-types'
 
 export default {
@@ -45,5 +46,8 @@ export default {
 	},
 	[SETBACKPOSITION] (state, position) {
 		state.previousPosition = position
+	},
+	[SETRANK] (state, rankInfo) {
+		state.rank = rankInfo
 	}
 }

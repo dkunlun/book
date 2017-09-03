@@ -87,6 +87,21 @@ const autoComplete = (searchKey) => {
 	return axios.get('/api/book/auto-complete?query=' + searchKey)
 }
 
+/**
+ * 获取所有排行版类型
+ * @return {null} 
+ */
+const getRankType = () => {
+	return axios.get('/api/ranking/gender')
+}
+
+/**
+ * 根据id获取排行版
+ * @param {String} [varname] id为周榜id，月榜id，总榜id
+ */
+const getRankList = (id) => {
+	return axios.get('/api/ranking/' + id)
+}
 
 export {
 	search,
@@ -98,5 +113,7 @@ export {
 	getCategoryDetail,
 	getNovelListByCat,
 	autoComplete,
-	getHotWords
+	getHotWords,
+	getRankType,
+	getRankList
 }

@@ -15,6 +15,7 @@
 			<mt-tab-container-item id="排行">
 				<mt-header fixed :title="selected"></mt-header>
 				<keep-alive include="Rank">
+					<Rank class="tab-container"></Rank>
 				</keep-alive>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="搜索">
@@ -42,6 +43,7 @@
 	import Bookshelf from '/pages/bookshelf/Bookshelf'
 	import BookCategory from '/pages/category/BookCategory'
 	import Search from '/pages/search/Search'
+	import Rank from '/pages/rankList/Rank'
 
 	export default {
 		data () {
@@ -52,7 +54,8 @@
 		components: {
 			Bookshelf,
 			BookCategory,
-			Search
+			Search,
+			Rank
 		},
 		mounted () {
 			this.selected = this.$store.state.previousPosition

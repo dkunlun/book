@@ -15,6 +15,7 @@
 	import { mapActions,mapGetters } from 'vuex'
 	import { getCategoryList } from '../../api/api'
 	export default {
+		name: 'BookCategory',
 		data () {
 			return {
 				category: null,

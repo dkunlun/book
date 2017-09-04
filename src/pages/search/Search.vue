@@ -15,13 +15,13 @@
 			<div class="search-history">
 				<div class="fun-bar">
 					<span>搜索历史</span>
-					<v-touch>
+					<v-touch @tap="clearSearchHistory">
 						<img src="../../assets/images/trash.svg">
 					</v-touch>
 				</div>
 				<ul class="history-list">
-					<v-touch tag="li">
-						重生
+					<v-touch tag="li" v-for="(history, index) in searchHistory" :key="index" @tap="search">
+						{{history}}
 					</v-touch>
 				</ul>
 			</div>
@@ -44,6 +44,7 @@
 	import BookList from '../book/BookList'
 	import { Indicator } from 'mint-ui'
 	import { mapMutations } from 'vuex'
+	import * as storage from '../../utils/storage'
 
 	export default {
 		data () {
@@ -63,6 +64,7 @@
 				if(!this.searchKey) {
 					this.autoCompleteList = []
 					this.searchResult = []
+					this.searchHistory = storage.getStorage('searchHistory') ? storage.getStorage('searchHistory') : []
 				}
 			}
 		},
@@ -77,6 +79,8 @@
 			},
 			search (el) {
 				this.searchKey = el.target.innerText || this.searchKey
+				let searchHistory = storage.getStorage('searchHistory') ? storage.getStorage('searchHistory') : []
+				storage.setStorage('searchHistory', [...new Set([this.searchKey, ...searchHistory])])
 				Indicator.open()
 				search(this.searchKey).then(res => {
 					this.searchResult = res.books
@@ -86,9 +90,16 @@
 				}).catch(err => {
 					console.log(err)
 				})
+			},
+			clearSearchHistory () {
+				storage.removeStorage('searchHistory')
+				this.searchHistory = []
 			}
 		},
 		created () {
+
+			this.searchHistory = storage.getStorage('searchHistory') ? storage.getStorage('searchHistory') : []
+
 			getHotWords().then(res => {
 				this.searchHotWords = res.searchHotWords
 				//只取前15个热词

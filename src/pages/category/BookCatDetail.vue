@@ -33,6 +33,7 @@
 			return {
 				major: '',
 				gender: '',
+				type: 'hot',
 				minor: '',
 				mins: null,
 				majorSelected: 0,

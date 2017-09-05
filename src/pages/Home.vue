@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<mt-tab-container v-model="selected" :swipeable="true">
+		<mt-tab-container v-model="selected" :swipeable="false">
 			<mt-tab-container-item id="书架">
 				<mt-header fixed :title="selected"></mt-header>
 				<Bookshelf class="tab-container bookshelf">
@@ -72,8 +72,8 @@
 		width: 100vw;
 	}
 	.bookshelf {
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		// display: flex;
+		// align-items: center;
+		// justify-content: center;
 	}
 </style>

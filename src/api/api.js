@@ -103,6 +103,15 @@ const getRankList = (id) => {
 	return Vue.http.get('/api/ranking/' + id)
 }
 
+/**
+ * 获取小说最新章节（书架）
+ * @param {Array} ids 更新小说id
+ * http://api05iye5.zhuishushenqi.com/book?view=updated&id=531169b3173bfacb4904ca67,51d11e782de6405c45000068
+ */
+const getUpdate = (ids) => {
+	return Vue.http.get('/api/book?view=updated&id=' + ids.toString())
+}
+
 export {
 	search,
 	bookDetail,
@@ -115,5 +124,6 @@ export {
 	autoComplete,
 	getHotWords,
 	getRankType,
-	getRankList
+	getRankList,
+	getUpdate
 }

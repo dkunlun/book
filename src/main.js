@@ -15,7 +15,7 @@ VueTouch.config.swipe = {
 }
 
 Vue.use(ajax, {
-  baseURL: 'http://1024cc.cc:3001/'
+  // baseURL: 'http://1024cc.cc:3001/'
 })
 
 Vue.use(VueTouch, {

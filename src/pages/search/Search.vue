@@ -5,6 +5,9 @@
 				<img src="../../assets/images/search.svg">
 			</span>
 			<input type="text" class="search-input" placeholder="输入书名或者作者名" v-model="searchKey" @input="autoComplete" @keyup.enter="search">
+			<span class="input-suffix" v-show="searchKey" @click="clearSearchKey">
+				<i class="icon icon-close-circle"></i>
+			</span>
 		</div>
 		<div class="search-info" v-show="!searchKey">
 			<ul class="search-word">
@@ -45,6 +48,7 @@
 	import { Indicator } from 'mint-ui'
 	import { mapMutations } from 'vuex'
 	import * as storage from '../../utils/storage'
+	import _ from 'lodash'
 
 	export default {
 		data () {
@@ -70,13 +74,16 @@
 		},
 		methods: {
 			...mapMutations(['SETBACKPOSITION']),
-			autoComplete () {
-				autoComplete(this.searchKey).then(res => {
-					this.autoCompleteList = res.keywords;
-				}).catch(err => {
-					console.log(err)
-				})
-			},
+			autoComplete: _.debounce(
+				function () {
+					autoComplete(this.searchKey).then(res => {
+						this.autoCompleteList = res.keywords;
+					}).catch(err => {
+						console.log(err)
+					})
+				},
+				500
+			),
 			search (el) {
 				this.searchKey = el.target.innerText || this.searchKey
 				let searchHistory = storage.getStorage('searchHistory') ? storage.getStorage('searchHistory') : []
@@ -94,6 +101,9 @@
 			clearSearchHistory () {
 				storage.removeStorage('searchHistory')
 				this.searchHistory = []
+			},
+			clearSearchKey () {
+				this.searchKey = ''
 			}
 		},
 		created () {

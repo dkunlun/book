@@ -7,6 +7,7 @@ const Book = resolve => require(['/pages/book/Book'], resolve)
 const Reader = resolve => require(['/pages/Reader'], resolve)
 const RankList = resolve => require(['/pages/rankList/RankList'], resolve)
 const RankListDetail = resolve => require(['/pages/rankList/RankListDetail'], resolve)
+const ChangeSource = resolve => require(['/pages/ChangeSource'], resolve)
 
 Vue.use(Router)
 
@@ -29,7 +30,7 @@ export default new Router({
     },
     {
       path: '/Reader/:id',
-      name: 'Reader',
+      name: 'reader',
       component: Reader
     },
     {
@@ -42,6 +43,11 @@ export default new Router({
         name: 'rankListDetail',
         component: RankListDetail
       }]
+    },
+    {
+      path: '/ChangeSource',
+      name: 'changeSource',
+      component: ChangeSource
     }
   ]
 })

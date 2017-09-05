@@ -3,8 +3,8 @@ var express = require('express');
 var proxy = require('http-proxy-middleware');
 
 var app = express();
-app.use('/static', express.static('static'));
-app.use('/assets', express.static('assets'));
+// app.use('/static', express.static('static'));
+// app.use('/assets', express.static('assets'));
 app.use('/', express.static('dist'));
 
 

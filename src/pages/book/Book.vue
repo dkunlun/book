@@ -21,8 +21,8 @@
 				</div>
 			</div>
 			<div class="book-operation">
-				<mt-button type="primary" class="btn">
-					追更新
+				<mt-button type="primary" class="btn" @click="follow">
+					{{isFollowed ? '不追了' : '追更新'}}
 				</mt-button>
 				<mt-button type="primary" class="btn" @click="toReadBook">
 					开始阅读
@@ -56,7 +56,7 @@
 
 <script>
 	import { bookDetail } from '../../api/api'
-	import {staticPath} from '../../utils/storage'
+	import { staticPath, getStorage, setStorage } from '../../utils/storage'
 	import moment from 'moment'
 	import {
 	  Indicator
@@ -66,7 +66,9 @@
 	export default {
 		data () {
 			return {
-				book: null
+				book: null,
+				isFollowed: false,
+				backStep: -1
 			}
 		},
 		filters: {
@@ -84,13 +86,31 @@
 		},
 		methods: {
 			toReadBook () {
-				this.$router.push({name: 'Reader', params: {id: this.$route.params.bookId}})
+				this.$router.push({name: 'reader', params: {id: this.$route.params.bookId}})
+			},
+			isFollowBook () {
+				let localShelf = getStorage('followBookList')
+				this.isFollowed = !!(localShelf && localShelf[this.book._id])
+			},
+			follow () {
+				let localShelf = getStorage('followBookList') ? getStorage('followBookList') : {}
+				if(this.isFollowed) {
+					delete localShelf[this.book._id]
+
+					setStorage('followBookList', localShelf)
+					this.isFollowed = !this.isFollowed
+				} else {
+					localShelf[this.book._id] = this.book
+					setStorage('followBookList', localShelf)
+					this.isFollowed = !this.isFollowed
+				}
 			}
 		},
 		created () {
 			Indicator.open()
 			bookDetail(this.$route.params.bookId).then(res => {
 				this.book = res
+				this.isFollowBook()
 				Indicator.close()
 			})
 		},

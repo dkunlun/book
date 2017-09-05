@@ -1,11 +1,11 @@
-import axios from 'axios'
+import Vue from 'vue'
 /**
  * 根据关键字搜索小说
  * @param  {string}
  * @return {promise}
  */
 const search = (keyword) => {
-	return axios.get('/api/book/fuzzy-search', {
+	return Vue.http.get('/api/book/fuzzy-search', {
 		params: {
 			query: keyword,
 			start: 0
@@ -18,13 +18,13 @@ const search = (keyword) => {
  * @return {promise}
  */
 const bookDetail = (id) => {
-	return axios.get('/api/book/' + id, {
+	return Vue.http.get('/api/book/' + id, {
 		
 	})
 }
 
 const getSource = (id) => {
-	return axios.get('/api/toc/', {
+	return Vue.http.get('/api/toc/', {
 		params: {
 			view: 'summary',
 			book: id
@@ -33,7 +33,7 @@ const getSource = (id) => {
 }
 
 const getChapterList = (id) => {
-	return axios.get('/api/toc/' + id, {
+	return Vue.http.get('/api/toc/' + id, {
 		params: {
 			view: 'chapters'
 		}
@@ -41,7 +41,7 @@ const getChapterList = (id) => {
 }
 
 const getContent = (link) => {
-	return axios.get('/chapter/' + link, {
+	return Vue.http.get('/chapter/' + link, {
 		params: {
 			k: '2124b73d7e2e1945',
 			t: '1468223717'
@@ -50,15 +50,15 @@ const getContent = (link) => {
 }
 
 const getCategoryList = () => {
-	return axios.get('/api/cats/lv2/statistics')
+	return Vue.http.get('/api/cats/lv2/statistics')
 }
 
 const getCategoryDetail = () => {
-	return axios.get('/api/cats/lv2')
+	return Vue.http.get('/api/cats/lv2')
 }
 
 const getNovelListByCat = (gender, type, major, minor = '', start = 0, limit = 20) => {
-	return axios.get('/api/book/by-categories', {
+	return Vue.http.get('/api/book/by-categories', {
 		params: {
 			gender: gender,
 			type: type,
@@ -74,7 +74,7 @@ const getNovelListByCat = (gender, type, major, minor = '', start = 0, limit = 2
  * 获取热词
  */
 const getHotWords = () => {
-	return axios.get('/api/book/search-hotwords')
+	return Vue.http.get('/api/book/search-hotwords')
 }
 
 
@@ -84,7 +84,7 @@ const getHotWords = () => {
  * http://api05iye5.zhuishushenqi.com/book/auto-complete?query=%E6%96%97%E7%BD%97
  */
 const autoComplete = (searchKey) => {
-	return axios.get('/api/book/auto-complete?query=' + searchKey)
+	return Vue.http.get('/api/book/auto-complete?query=' + searchKey)
 }
 
 /**
@@ -92,7 +92,7 @@ const autoComplete = (searchKey) => {
  * @return {null} 
  */
 const getRankType = () => {
-	return axios.get('/api/ranking/gender')
+	return Vue.http.get('/api/ranking/gender')
 }
 
 /**
@@ -100,7 +100,7 @@ const getRankType = () => {
  * @param {String} [varname] id为周榜id，月榜id，总榜id
  */
 const getRankList = (id) => {
-	return axios.get('/api/ranking/' + id)
+	return Vue.http.get('/api/ranking/' + id)
 }
 
 export {

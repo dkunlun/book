@@ -45,11 +45,14 @@
 						this.rankType = this.rank.totalRank
 						this.currentLoadPage = 0
 						break
-					default: 
+					default:
 						this.$router.push('/rank')
 						break
 				}
 				getRankList(this.rankType).then(res => {
+					//更新头部标题
+					this.$emit('updateTitle', res.ranking.shortTitle)
+
 					this.rankInfo = res.ranking
 					//第一次加载20条
 					this.books = res.ranking.books.slice(0, 20)

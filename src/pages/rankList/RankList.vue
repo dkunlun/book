@@ -16,7 +16,7 @@
 				总榜
 			</router-link>
 		</ul>
-		<router-view></router-view>
+		<router-view v-on:updateTitle="updateTitle"></router-view>
 	</div>
 </template>
 
@@ -30,7 +30,10 @@
 			}
 		},
 		methods: {
-			...mapMutations(['SETBACKPOSITION'])
+			...mapMutations(['SETBACKPOSITION']),
+			updateTitle (title) {
+				this.headTitle = title
+			}
 		},
 		beforeRouteLeave (to, from, next) {
 			this.SETBACKPOSITION('排行')

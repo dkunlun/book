@@ -106,7 +106,7 @@
 			next(vm => {
 				vm.major = vm.$route.query.major
 				vm.gender = vm.$route.query.gender
-				
+
 				getCategoryDetail().then(res => {
 					res[vm.$route.query.gender].forEach((type) => {
 						if(type.major === vm.$route.query.major) {

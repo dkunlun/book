@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<mt-button type="primary" class="add-book" v-if="!books.length">
+		<mt-button type="primary" class="add-book" v-if="!books.length" @click="addBook">
 			添加小说
 		</mt-button>
 		<ul class="book-shelf" v-if="books.length">
@@ -30,7 +30,7 @@
 
 	moment.locale('zh-cn')
 	export default {
-		naem: 'Bookshelf',
+		name: 'Bookshelf',
 		data () {
 			return {
 				books: []
@@ -97,6 +97,9 @@
 			},
 			toReadBook (book) {
 				this.$router.push({name: 'reader', params: {id: book._id}})
+			},
+			addBook () {
+				this.$emit('addBook', '分类')
 			}
 		}
 	}

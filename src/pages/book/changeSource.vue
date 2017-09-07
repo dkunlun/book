@@ -54,6 +54,7 @@
 		position: absolute;
 		background: #fff;
 		height: calc(100vh - 40px);
+		width: 100vw;
 		overflow-y: scroll;
 		bottom: 0;
 		ul {
@@ -72,6 +73,10 @@
 					text-overflow: ellipsis;
 				}
 			}
+		}
+		.tag {
+			padding: 5px;
+			border-radius: 2px;
 		}
 	}
 </style>

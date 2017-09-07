@@ -3,7 +3,7 @@
 		<mt-tab-container v-model="selected" :swipeable="false">
 			<mt-tab-container-item id="书架">
 				<mt-header fixed :title="selected"></mt-header>
-				<Bookshelf class="tab-container bookshelf">
+				<Bookshelf class="tab-container bookshelf" @addBook="changeSelected">
 				</Bookshelf>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="分类">
@@ -49,6 +49,11 @@
 		data () {
 			return {
 				selected: '书架'
+			}
+		},
+		methods: {
+			changeSelected (data) {
+				this.selected = data
 			}
 		},
 		components: {

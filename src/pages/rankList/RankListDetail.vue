@@ -1,7 +1,7 @@
 <template>
 	<div class="book-list-wrap">
 		<v-touch tag="ul" @swipeleft="swipeleft" @swiperight="swiperight">
-			<BookList v-for="book in books" :book="book" :key="book._id"></BookList>
+			<BookList v-for="book in books" :book="book" :key="book._id"> </BookList>
 		</v-touch>
 	</div>
 </template>

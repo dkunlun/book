@@ -1,5 +1,9 @@
 <template>
 	<div>
+		<mt-popup
+		  v-model="messageVisible">
+		  12333
+		</mt-popup>
 		<div class="header" v-show="showSetting">
 			<a href="javascript: void(0);" @click="back">
 				<i class="icon icon-left"></i>
@@ -12,8 +16,8 @@
 			<h1>{{content.title}}</h1>
 			<pre>{{content.cpContent || content.body}}</pre>
 			<h1>
-				<span>上一章</span>
-				<span>下一章</span>
+				<span @click.stop="prevChapter">上一章</span>
+				<span @click.stop="nextChapter">下一章</span>
 			</h1>
 		</div>
 		<div class="footer" v-show="showSetting">
@@ -56,6 +60,7 @@
 				visible: false,
 				showSetting: false,
 				showColor: false,
+				messageVisible: false,
 				colorList: [
 					'rgb(196, 196, 196)',
 					'rgb(162, 157, 137)',
@@ -68,7 +73,7 @@
 			}
 		},
 		computed: {
-			...mapGetters(['sourceList', 'chapterList', 'content', 'currentSource', 'currentBook'])
+			...mapGetters(['sourceList', 'chapterList', 'content', 'currentSource', 'currentBook', 'currentChapter'])
 		},
 		methods: {
 			...mapActions(['getSource', 'getChapterList', 'getContent']),
@@ -122,6 +127,23 @@
 						console.log(err)
 					}
 				}
+			},
+			changeChapter (link, index) {
+				this.getContent(this.chapterList[this.currentChapter.num].link)
+			},
+			prevChapter () {
+				if(this.currentChapter.num <= 0) {
+					this.messageVisible = true
+					return
+				}
+				this.currentChapter.num--
+				this.SET_CURRENT_CHAPTER(this.currentChapter)
+				this.changeChapter()
+			},
+			nextChapter () {
+				this.currentChapter.num++
+				this.SET_CURRENT_CHAPTER(this.currentChapter)
+				this.changeChapter()
 			}
 		},
 		beforeRouteEnter (to, from, next) {
@@ -171,6 +193,7 @@
 		h1:last-child {
 			font-size: 1rem;
 			padding: 0 50px;
+			margin-top: 2rem;
 			cursor: pointer;
 			span:first-child {
 				float: left;

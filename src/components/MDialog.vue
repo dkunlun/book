@@ -17,7 +17,7 @@
 		name: 'MDialog',
 		data () {
 			return {
-				
+
 			}
 		},
 		computed: {

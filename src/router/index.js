@@ -4,10 +4,10 @@ import Router from 'vue-router'
 const Home = resolve => require(['/pages/Home'], resolve)
 const BookCatDetail = resolve => require(['/pages/category/BookCatDetail'], resolve)
 const Book = resolve => require(['/pages/book/Book'], resolve)
-const Reader = resolve => require(['/pages/Reader'], resolve)
+const Reader = resolve => require(['/pages/book/Reader'], resolve)
 const RankList = resolve => require(['/pages/rankList/RankList'], resolve)
 const RankListDetail = resolve => require(['/pages/rankList/RankListDetail'], resolve)
-const ChangeSource = resolve => require(['/pages/ChangeSource'], resolve)
+const ChangeSource = resolve => require(['/pages/book/ChangeSource'], resolve)
 
 Vue.use(Router)
 
@@ -15,7 +15,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
+      name: 'home',
       component: Home
     },
     {

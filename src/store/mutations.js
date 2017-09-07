@@ -6,10 +6,11 @@ import {
 	GETCONTENT,
 	SETHISTORY,
 	SETKEYWORD,
-	SETCURRENTSOURCE,
-	SETCURRENTCHAPTER,
+	SET_CURRENT_BOOK,
+	SET_CURRENT_SOURCE,
+	SET_CURRENT_CHAPTER,
 	GETCATEGORYLIST,
-	SETBACKPOSITION,
+	SET_BACK_POSITION,
 	SETRANK
 } from './mutation-types'
 
@@ -35,16 +36,19 @@ export default {
 	[SETKEYWORD] (state, keyword) {
 		state.keyword = keyword
 	},
-	[SETCURRENTSOURCE] (state, source) {
+	[SET_CURRENT_BOOK] (state, book) {
+		state.currentBook = book
+	},
+	[SET_CURRENT_SOURCE] (state, source) {
 		state.currentSource = source
 	},
-	[SETCURRENTCHAPTER] (state, chapter) {
+	[SET_CURRENT_CHAPTER] (state, chapter) {
 		state.currentChapter = chapter
 	},
 	[GETCATEGORYLIST] (state, list) {
 		state.categoryList = list
 	},
-	[SETBACKPOSITION] (state, position) {
+	[SET_BACK_POSITION] (state, position) {
 		state.previousPosition = position
 	},
 	[SETRANK] (state, rankInfo) {

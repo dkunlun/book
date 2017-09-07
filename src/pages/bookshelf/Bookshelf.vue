@@ -53,22 +53,23 @@
 				}
 				return ids
 			},
-			getBookUpdate () {
+			async getBookUpdate () {
 				let localShelf,
-					that = this
+					that = this,
+					res = null
 				Indicator.open()
-				getUpdate(this.getBookList()).then(res => {
+				try {
+					res = await getUpdate(this.getBookList())
 					localShelf = getStorage('followBookList')
 					res.forEach((book) => {
 						Object.assign(book, localShelf[book._id])
 						book.cover = staticPath + book.cover
 						this.books.push(book)
 					})
-					Indicator.close()
-				}).catch(err => {
+				} catch(err) {
 					console.log(err)
-					Indicator.close()
-				})
+				}
+				Indicator.close()
 			},
 			showDelBookBtn (e) {
 				let target = e.target.parentElement
@@ -170,7 +171,7 @@
 
 	@keyframes slideLeft {
 		from {
-			left: 0 
+			left: 0
 		}
 		to {
 			left: -44vw

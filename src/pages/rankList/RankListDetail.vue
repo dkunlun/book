@@ -45,9 +45,6 @@
 						this.rankType = this.rank.totalRank
 						this.currentLoadPage = 0
 						break
-					default:
-						this.$router.push('/rank')
-						break
 				}
 				getRankList(this.rankType).then(res => {
 					//更新头部标题

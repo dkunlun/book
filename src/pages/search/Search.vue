@@ -73,7 +73,7 @@
 			}
 		},
 		methods: {
-			...mapMutations(['SETBACKPOSITION']),
+			...mapMutations(['SET_BACK_POSITION']),
 			autoComplete: _.debounce(
 				function () {
 					autoComplete(this.searchKey).then(res => {
@@ -92,7 +92,7 @@
 				search(this.searchKey).then(res => {
 					this.searchResult = res.books
 					this.autoCompleteList = []
-					this.SETBACKPOSITION('搜索')
+					this.SET_BACK_POSITION('搜索')
 					Indicator.close()
 				}).catch(err => {
 					console.log(err)

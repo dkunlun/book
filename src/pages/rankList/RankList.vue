@@ -30,13 +30,13 @@
 			}
 		},
 		methods: {
-			...mapMutations(['SETBACKPOSITION']),
+			...mapMutations(['SET_BACK_POSITION']),
 			updateTitle (title) {
 				this.headTitle = title
 			}
 		},
 		beforeRouteLeave (to, from, next) {
-			this.SETBACKPOSITION('排行')
+			this.SET_BACK_POSITION('排行')
 			next()
 		}
 	}

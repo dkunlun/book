@@ -4,7 +4,7 @@
 			<a href="javascript: void(0);" @click="back">
 				<i class="icon icon-left"></i>
 			</a>
-			<router-link :to="{name: 'ChangeSource'}">
+			<router-link :to="{name: 'changeSource'}">
 				<span>换源</span>
 			</router-link>
 		</div>
@@ -57,8 +57,8 @@
 				showSetting: false,
 				showColor: false,
 				colorList: [
-					'rgb(196, 196, 196)', 
-					'rgb(162, 157, 137)', 
+					'rgb(196, 196, 196)',
+					'rgb(162, 157, 137)',
 					'rgb(173, 200, 169)'
 				],
 				settingStyle: {
@@ -68,11 +68,11 @@
 			}
 		},
 		computed: {
-			...mapGetters(['sourceList', 'chapterList', 'content', 'currentSource'])
+			...mapGetters(['sourceList', 'chapterList', 'content', 'currentSource', 'currentBook'])
 		},
 		methods: {
 			...mapActions(['getSource', 'getChapterList', 'getContent']),
-			...mapMutations(['SETCURRENTSOURCE', 'SETCURRENTCHAPTER']),
+			...mapMutations(['SET_CURRENT_SOURCE', 'SET_CURRENT_CHAPTER', 'SET_CURRENT_BOOK']),
 			showList () {
 				this.visible = true;
 			},
@@ -98,23 +98,36 @@
 				} else {
 					this.settingStyle.fontSize = number - 1 + 'px'
 				}
+			},
+			async initData () {
+				let id = this.$route.params.id
+				if(this.currentBook._id !== id) {
+					try {
+						await this.getSource(id);
+
+						let source = this.sourceList[0]
+						this.SET_CURRENT_SOURCE(source)
+
+						await this.getChapterList(source._id)
+
+						let chapter = this.chapterList[0]
+						this.SET_CURRENT_CHAPTER({
+							num: 0
+						})
+						this.getContent(chapter.link)
+						this.SET_CURRENT_BOOK({
+							_id: id
+						})
+					} catch(err) {
+						console.log(err)
+					}
+				}
 			}
 		},
-		created() {
-			let id = this.$route.params.id
-			if(this.sourceList.length === 0) {
-				this.getSource(id).then((res) => {
-					let source = this.sourceList[0]
-					this.SETCURRENTSOURCE(source)
-					return this.getChapterList(source._id)
-				}).then(() => {
-					let chapter = this.chapterList[0]
-					this.SETCURRENTCHAPTER({
-						num: 0
-					})
-					this.getContent(chapter.link)
-				})
-			}
+		beforeRouteEnter (to, from, next) {
+			next(vm => {
+				vm.initData()
+			})
 		},
 		components: {
 			MDialog

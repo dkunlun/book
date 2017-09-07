@@ -62,7 +62,7 @@
 			BookList
 		},
 		methods: {
-			...mapMutations(['SETBACKPOSITION']),
+			...mapMutations(['SET_BACK_POSITION']),
 			getNovelListByCat (gender, type, major, minor) {
 				Indicator.open('加载中')
 				getNovelListByCat(gender, type, major, minor).then (res => {
@@ -116,7 +116,7 @@
 				})
 
 				vm.getNovelListByCat(vm.$route.query.gender, vm.type, vm.$route.query.major)
-				vm.SETBACKPOSITION('分类')
+				vm.SET_BACK_POSITION('分类')
 			})
 		}
 	}

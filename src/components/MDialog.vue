@@ -2,9 +2,9 @@
 	<div v-show="visible">
 		<div class="modal-mask"></div>
 		<div class="modal-wrapper" @click="close">
-			<div class="dialog-container">
+			<div class="dialog-container" :scroll-top.prop="getTop()">
 				<div>
-					<p v-for="(item, index) in chapterList" :class="{choosed: currentChapter == index}" @click="changeChapter(item.link, index)">{{item.title}}</p>
+					<p v-for="(item, index) in chapterList" :class="{choosed: currentChapter.num == index}" @click="changeChapter(item.link, index)">{{item.title}}</p>
 				</div>
 			</div>
 		</div>
@@ -36,15 +36,18 @@
 		},
 		methods: {
 			...mapActions(['getContent']),
-			...mapMutations(['SETCURRENTCHAPTER']),
+			...mapMutations(['SET_CURRENT_CHAPTER']),
 			close () {
 				this.$emit('update:visible', false)
 			},
 			changeChapter (link, index) {
-				this.SETCURRENTCHAPTER({
+				this.SET_CURRENT_CHAPTER({
 					num: index
 				})
 				this.getContent(link)
+			},
+			getTop () {
+				return this.currentChapter.num * 45
 			}
 		},
 		created () {

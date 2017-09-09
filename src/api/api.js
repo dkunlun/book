@@ -19,10 +19,14 @@ const search = (keyword) => {
  */
 const bookDetail = (id) => {
 	return Vue.http.get('/api/book/' + id, {
-		
+
 	})
 }
 
+/**
+ * 获取书源列表
+ * @param  {String} id 小说id
+ */
 const getSource = (id) => {
 	return Vue.http.get('/api/toc/', {
 		params: {
@@ -32,6 +36,10 @@ const getSource = (id) => {
 	})
 }
 
+/**
+ * 获取章节列表
+ * @param  {String} id 小说id
+ */
 const getChapterList = (id) => {
 	return Vue.http.get('/api/toc/' + id, {
 		params: {
@@ -40,6 +48,10 @@ const getChapterList = (id) => {
 	})
 }
 
+/**
+ * 获取章节内容
+ * @param  {String} link 小说章节的Link
+ */
 const getContent = (link) => {
 	return Vue.http.get('/chapter/' + link, {
 		params: {
@@ -48,11 +60,16 @@ const getContent = (link) => {
 		}
 	})
 }
-
+/**
+ * 获取书籍分类
+ */
 const getCategoryList = () => {
 	return Vue.http.get('/api/cats/lv2/statistics')
 }
 
+/**
+ * 获取大类下面的小类
+ */
 const getCategoryDetail = () => {
 	return Vue.http.get('/api/cats/lv2')
 }
@@ -89,7 +106,7 @@ const autoComplete = (searchKey) => {
 
 /**
  * 获取所有排行版类型
- * @return {null} 
+ * @return {null}
  */
 const getRankType = () => {
 	return Vue.http.get('/api/ranking/gender')

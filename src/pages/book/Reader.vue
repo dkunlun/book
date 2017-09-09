@@ -104,6 +104,7 @@
 					this.settingStyle.fontSize = number - 1 + 'px'
 				}
 			},
+			//初始化数据
 			async initData () {
 				let id = this.$route.params.id
 				if(this.currentBook._id !== id) {
@@ -128,9 +129,11 @@
 					}
 				}
 			},
+			//更换章节
 			changeChapter (link, index) {
 				this.getContent(this.chapterList[this.currentChapter.num].link)
 			},
+			//上一章
 			prevChapter () {
 				if(this.currentChapter.num <= 0) {
 					this.messageVisible = true
@@ -140,6 +143,7 @@
 				this.SET_CURRENT_CHAPTER(this.currentChapter)
 				this.changeChapter()
 			},
+			//下一章
 			nextChapter () {
 				this.currentChapter.num++
 				this.SET_CURRENT_CHAPTER(this.currentChapter)

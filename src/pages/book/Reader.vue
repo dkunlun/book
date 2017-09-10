@@ -52,6 +52,7 @@
 
 <script>
 	import { mapGetters, mapActions, mapMutations } from 'vuex'
+	import { getStorage, setStorage } from '../../utils/storage'
 	import MDialog from '@/components/MDialog'
 
 	export default {
@@ -109,6 +110,9 @@
 				let id = this.$route.params.id
 				if(this.currentBook._id !== id) {
 					try {
+						let localShelf = getStorage('followBookList')
+						let currentChapter = localShelf[id].currentChapter
+
 						await this.getSource(id);
 
 						let source = this.sourceList[0]
@@ -116,9 +120,9 @@
 
 						await this.getChapterList(source._id)
 
-						let chapter = this.chapterList[0]
+						let chapter = this.chapterList[currentChapter || 0]
 						this.SET_CURRENT_CHAPTER({
-							num: 0
+							num: currentChapter || 0
 						})
 						this.getContent(chapter.link)
 						this.SET_CURRENT_BOOK({
@@ -129,9 +133,22 @@
 					}
 				}
 			},
+			toTop () {
+				var body = document.querySelector('body').scrollTop = 0
+			},
 			//更换章节
-			changeChapter (link, index) {
-				this.getContent(this.chapterList[this.currentChapter.num].link)
+			changeChapter () {
+				this.getContent(this.chapterList[this.currentChapter.num].link).then(res => {
+					this.toTop()
+					this.updateLocalChapter()
+				})
+			},
+			//更新缓存里面已经阅读到的章节
+			updateLocalChapter () {
+				let localShelf = getStorage('followBookList')
+				let id = this.$route.params.id
+				localShelf[id].currentChapter = this.currentChapter.num
+				setStorage('followBookList', localShelf)
 			},
 			//上一章
 			prevChapter () {

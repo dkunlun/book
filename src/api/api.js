@@ -73,7 +73,15 @@ const getCategoryList = () => {
 const getCategoryDetail = () => {
 	return Vue.http.get('/api/cats/lv2')
 }
-
+/**
+ * 根据类型获取小说列表
+ * @param  {String} gender     male/female/press
+ * @param  {String} type       hot(热门)/new(新书）/reputation(好评)/over(完结)/monthly(包月)
+ * @param  {String} major      
+ * @param  {String} [minor=''] 
+ * @param  {Number} [start=0]  
+ * @param  {Number} [limit=20] 
+ */
 const getNovelListByCat = (gender, type, major, minor = '', start = 0, limit = 20) => {
 	return Vue.http.get('/api/book/by-categories', {
 		params: {

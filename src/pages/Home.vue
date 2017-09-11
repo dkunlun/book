@@ -24,7 +24,7 @@
 		</mt-tab-container>
 		<mt-tabbar :fixed="true" v-model="selected">
 			<mt-tab-item id="书架">
-				<img slot="icon" src="../assets/images/book.svg"> 书架
+				<img slot="icon" src="../assets/images/book.svg">书架
 			</mt-tab-item>
 			<mt-tab-item id="分类">
 				<img slot="icon" src="../assets/images/category.svg"> 分类

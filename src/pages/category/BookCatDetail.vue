@@ -63,12 +63,15 @@
 		},
 		methods: {
 			...mapMutations(['SET_BACK_POSITION']),
-			getNovelListByCat (gender, type, major, minor) {
-				Indicator.open('加载中')
-				getNovelListByCat(gender, type, major, minor).then (res => {
+			async getNovelListByCat (gender, type, major, minor) {
+				try {
+					Indicator.open('加载中')
+					let res = await getNovelListByCat(gender, type, major, minor)
 					Indicator.close()
 					this.books = res.books
-				})
+				} catch (err) {
+					console.log(err)
+				}
 			},
 			loadTop () {
 				this.getNovelListByCat(this.gender, this.type, this.major, this.minor)
@@ -77,29 +80,30 @@
 			/**
 			 * 加载更多
 			 */
-			loadBottom () {
-				let that = this
-				Indicator.open('加载中')
-				getNovelListByCat(this.gender, this.type, this.major, this.minor, this.currentPage * 20).then(res => {
-					that.books = [...that.books, ...res]
-					that.currentPage++
+			async loadBottom () {
+				try {
+					Indicator.open('加载中')
+					console.log(1)
+					let res = await getNovelListByCat(this.gender, this.type, this.major, this.minor, this.currentPage * 20)
+					this.books = [...this.books, ...res.books]
+					this.currentPage++
 					Indicator.close()
-				})
-				this.$refs.loadmore.onBottomLoaded()
+					this.$refs.loadmore.onBottomLoaded()
+				} catch (err) {
+					console.log(err)
+				}
 			},
-			setType (type, index) {
+			async setType (type, index) {
 				this.majorSelected = index
 				this.type = type
-				getNovelListByCat(this.gender, this.type, this.major, this.minor).then(res => {
-					this.books = res.books
-				})
+				let res = await getNovelListByCat(this.gender, this.type, this.major, this.minor)
+				this.books = res.books
 			},
-			setMinor (minor, index) {
+			async setMinor (minor, index) {
 				this.minorSelected = index
 				this.minor = minor
-				getNovelListByCat(this.gender, this.type, this.major, this.minor).then(res => {
-					this.books = res.books
-				})
+				let res = await getNovelListByCat(this.gender, this.type, this.major, this.minor)
+				this.books = res.books
 			}
 		},
 		beforeRouteEnter (to, from, next) {

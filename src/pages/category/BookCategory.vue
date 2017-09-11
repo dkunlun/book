@@ -45,7 +45,7 @@
 
 <style lang="scss" scoped>
 	section {
-		font-size: 1.2rem;
+		font-size: 1rem;
 	}
 	.category-type {
 		margin: 0 1rem;
@@ -68,7 +68,7 @@
 	}
 	.category {
 		font-weight: 700;
-		font-size: 1.2rem;
+		font-size: 1rem;
 		margin-bottom: .1rem;
 		margin-top: .8rem;
 		line-height: 1.2rem;

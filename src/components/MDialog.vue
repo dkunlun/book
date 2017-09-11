@@ -13,6 +13,7 @@
 
 <script>
 	import { mapGetters, mapActions, mapMutations } from 'vuex'
+	import { setStorage, getStorage } from '../utils/storage'
 	export default {
 		name: 'MDialog',
 		data () {
@@ -21,7 +22,7 @@
 			}
 		},
 		computed: {
-			...mapGetters(['chapterList', 'currentChapter'])
+			...mapGetters(['chapterList', 'currentChapter', 'currentBook'])
 		},
 		props: {
 			visible: {
@@ -39,6 +40,12 @@
 			...mapMutations(['SET_CURRENT_CHAPTER']),
 			close () {
 				this.$emit('update:visible', false)
+			},
+			updateLocalChapter () {
+				let localShelf = getStorage('followBookList')
+				let id = this.currentBook._id
+				localShelf[id].currentChapter = this.currentChapter.num
+				setStorage('followBookList', localShelf)
 			},
 			changeChapter (link, index) {
 				this.SET_CURRENT_CHAPTER({

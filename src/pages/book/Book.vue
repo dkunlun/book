@@ -154,12 +154,12 @@
 	}
 	.book-operation{
 		display: flex;
-		justify-content: space-around;
+		justify-content: space-between;
 		flex-direction: row;
 		margin-top: 1.25rem;
 		margin-bottom: 1.25rem;
 		.btn {
-			width: 10rem;
+			width: 9.75rem;
 			background: #03a9f4;
 			border: none;
 			color: #fff;

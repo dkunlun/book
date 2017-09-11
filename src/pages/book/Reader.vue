@@ -111,8 +111,7 @@
 				if(this.currentBook._id !== id) {
 					try {
 						let localShelf = getStorage('followBookList')
-						let currentChapter = localShelf[id].currentChapter
-
+						let currentChapter = localShelf ? localShelf[id].currentChapter : 0
 						await this.getSource(id);
 
 						let source = this.sourceList[0]

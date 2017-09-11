@@ -56,10 +56,12 @@
 			async getBookUpdate () {
 				let localShelf,
 					that = this,
-					res = null
+					res = null,
+					ids = this.getBookList()
+				if(ids.length === 0) return
 				Indicator.open()
 				try {
-					res = await getUpdate(this.getBookList())
+					res = await getUpdate(ids)
 					localShelf = getStorage('followBookList')
 					res.forEach((book) => {
 						Object.assign(book, localShelf[book._id])

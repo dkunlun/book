@@ -75,6 +75,7 @@
 		right: 0;
 		z-index: 1000;
 		.dialog-container {
+			-webkit-overflow-scrolling: touch;
 			position: relative;
 			background-color: #fff;
 			top: 100px;

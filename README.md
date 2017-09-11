@@ -1,6 +1,6 @@
 # book
 
-> A Vue.js project
+使用vue构建的看小说网站
 
 ## Build Setup
 
@@ -13,18 +13,15 @@ npm run dev
 
 # build for production with minification
 npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
 ```
+pc端请使用移动模式
+[在线预览](http://1024cc.cc:3001/)
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## 实现功能
+- [x] 小说书架（增加缓存处理）
+- [x] 分类查询
+- [x] 排行版
+- [x] 搜索
+- [x] 小说详情
+- [x] 小说阅读（更改字体大小，切换背景颜色）
+- [x] 小说换源

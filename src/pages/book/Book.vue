@@ -105,15 +105,15 @@
 					setStorage('followBookList', localShelf)
 					this.isFollowed = !this.isFollowed
 				}
+			},
+			async init () {
+				Indicator.open()
+				//获取书籍详情
+				let res = await bookDetail(this.$route.params.bookId)
+				this.book = res
+				this.isFollowBook()
+				Indicator.close()
 			}
-		},
-		async init () {
-			Indicator.open()
-			//获取书籍详情
-			bookDetail(this.$route.params.bookId)
-			this.book = res
-			this.isFollowBook()
-			Indicator.close()
 		},
 		created () {
 			this.init()

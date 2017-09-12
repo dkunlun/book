@@ -41,7 +41,7 @@
 					console.log(err)
 				}
 			}
-		}
+		},
 		created () {
 			this.init()
 		}

@@ -84,6 +84,10 @@
 				},
 				500
 			),
+			/**
+			 * 搜索方法
+			 * @param  {dom} el 点击的节点
+			 */
 			search (el) {
 				this.searchKey = el.target.innerText || this.searchKey
 				let searchHistory = storage.getStorage('searchHistory') ? storage.getStorage('searchHistory') : []
@@ -104,19 +108,21 @@
 			},
 			clearSearchKey () {
 				this.searchKey = ''
+			},
+			async init () {
+				this.searchHistory = storage.getStorage('searchHistory') ? storage.getStorage('searchHistory') : []
+				try {
+					let res = await getHotWords()
+					this.searchHotWords = res.searchHotWords
+					//只取前15个热词
+					this.searchHotWords.length = 15
+				} catch (err) {
+					console.log(err)
+				}
 			}
 		},
 		created () {
-
-			this.searchHistory = storage.getStorage('searchHistory') ? storage.getStorage('searchHistory') : []
-
-			getHotWords().then(res => {
-				this.searchHotWords = res.searchHotWords
-				//只取前15个热词
-				this.searchHotWords.length = 15
-			}).catch(err => {
-				console.log(err)
-			})
+			this.init()
 		}
 	}
 </script>

@@ -88,6 +88,7 @@
 			toReadBook () {
 				this.$router.push({name: 'reader', params: {id: this.$route.params.bookId}})
 			},
+			//判断是否追书
 			isFollowBook () {
 				let localShelf = getStorage('followBookList')
 				this.isFollowed = !!(localShelf && localShelf[this.book._id])
@@ -106,13 +107,16 @@
 				}
 			}
 		},
-		created () {
+		async init () {
 			Indicator.open()
-			bookDetail(this.$route.params.bookId).then(res => {
-				this.book = res
-				this.isFollowBook()
-				Indicator.close()
-			})
+			//获取书籍详情
+			bookDetail(this.$route.params.bookId)
+			this.book = res
+			this.isFollowBook()
+			Indicator.close()
+		},
+		created () {
+			this.init()
 		},
 		beforeRouteEnter (to, from, next) {
 			next(vm => {

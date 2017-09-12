@@ -136,11 +136,10 @@
 				var body = document.querySelector('body').scrollTop = 0
 			},
 			//更换章节
-			changeChapter () {
-				this.getContent(this.chapterList[this.currentChapter.num].link).then(res => {
-					this.toTop()
-					this.updateLocalChapter()
-				})
+			async changeChapter () {
+				let res = await this.getContent(this.chapterList[this.currentChapter.num].link)
+				this.toTop()
+				this.updateLocalChapter()
 			},
 			//更新缓存里面已经阅读到的章节
 			updateLocalChapter () {

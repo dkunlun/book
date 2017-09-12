@@ -30,7 +30,8 @@
 			...mapGetters(['rank'])
 		},
 		methods: {
-			getData () {
+			async getData () {
+				
 				Indicator.open()
 				switch (this.$route.path) {
 					case this.rankTypeStack[0]:
@@ -46,18 +47,19 @@
 						this.currentLoadPage = 0
 						break
 				}
-				getRankList(this.rankType).then(res => {
+				try {
+					let res = await getRankList(this.rankType)
 					//更新头部标题
 					this.$emit('updateTitle', res.ranking.shortTitle)
 
 					this.rankInfo = res.ranking
 					//第一次加载20条
 					this.books = res.ranking.books.slice(0, 20)
-					Indicator.close()
-				}).catch(err => {
-					Indicator.close()
+				} catch (err) {
 					console.log(err)
-				})
+				}
+				Indicator.close()
+
 			},
 			swipeleft () {
 				if(this.currentRank >= 2) {

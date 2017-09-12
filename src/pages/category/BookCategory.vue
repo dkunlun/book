@@ -28,10 +28,9 @@
 			}
 		},
 		methods: {
-			getCategoryList () {
-				getCategoryList().then(res => {
-					this.category = res;
-				})
+			async getCategoryList () {
+				let res = await getCategoryList()
+				this.category = res;
 			},
 			toBookCatDetail (key, cat) {
 				this.$router.push({path: '/bookCat/detail', query: {gender: key,major:cat.name}})

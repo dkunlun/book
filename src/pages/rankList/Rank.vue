@@ -32,12 +32,18 @@
 		components: {
 			RankItem
 		},
+		methods: {
+			async init () {
+				try {
+					let res = await getRankType()
+					this.rankList = res
+				} catch (err) {
+					console.log(err)
+				}
+			}
+		}
 		created () {
-			getRankType().then(res => {
-				this.rankList = res
-			}).catch(err => {
-				console.log(err)
-			})
+			this.init()
 		}
 	}
 </script>

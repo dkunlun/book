@@ -44,6 +44,7 @@
 	import BookCategory from '/pages/category/BookCategory'
 	import Search from '/pages/search/Search'
 	import Rank from '/pages/rankList/Rank'
+	import { mapMutations } from 'vuex'
 
 	export default {
 		data () {
@@ -52,8 +53,14 @@
 			}
 		},
 		methods: {
+			...mapMutations(['SET_BACK_POSITION']),
 			changeSelected (data) {
 				this.selected = data
+			}
+		},
+		watch: {
+			selected: function (val) {
+				this.SET_BACK_POSITION(val)
 			}
 		},
 		components: {

@@ -1,36 +1,28 @@
 import {
-	BOOKDETAIL,
-	GETSOURCE,
-	GETCHAPTERLIST,
-	GETCONTENT,
-	SETHISTORY,
-	SETKEYWORD,
+	BOOK_DETAIL,
+	GET_SOURCE,
+	GET_CHAPTER_LIST,
+	GET_CONTENT,
 	SET_CURRENT_BOOK,
 	SET_CURRENT_SOURCE,
 	SET_CURRENT_CHAPTER,
-	GETCATEGORYLIST,
+	GET_CATEGORY_LIST,
 	SET_BACK_POSITION,
-	SETRANK
+	SET_RANK
 } from './mutation-types'
 
 export default {
-	[BOOKDETAIL] (state, bookInfo) {
-		state.bookInfo = bookInfo
+	[BOOK_DETAIL] (state, info) {
+		state.bookInfo = info
 	},
-	[GETSOURCE] (state, list) {
+	[GET_SOURCE] (state, list) {
 		state.sourceList = list
 	},
-	[GETCHAPTERLIST] (state, list) {
+	[GET_CHAPTER_LIST] (state, list) {
 		state.chapterList = list
 	},
-	[GETCONTENT] (state, content) {
+	[GET_CONTENT] (state, content) {
 		state.content = content
-	},
-	[SETHISTORY] (state, history) {
-		state.history = history
-	},
-	[SETKEYWORD] (state, keyword) {
-		state.keyword = keyword
 	},
 	[SET_CURRENT_BOOK] (state, book) {
 		state.currentBook = book
@@ -41,13 +33,13 @@ export default {
 	[SET_CURRENT_CHAPTER] (state, chapter) {
 		state.currentChapter = chapter
 	},
-	[GETCATEGORYLIST] (state, list) {
+	[GET_CATEGORY_LIST] (state, list) {
 		state.categoryList = list
 	},
 	[SET_BACK_POSITION] (state, position) {
 		state.previousPosition = position
 	},
-	[SETRANK] (state, rankInfo) {
+	[SET_RANK] (state, rankInfo) {
 		state.rank = rankInfo
 	}
 }

@@ -17,10 +17,10 @@
 			}
 		},
 		methods: {
-			...mapMutations(['SETRANK']),
+			...mapMutations(['SET_RANK']),
 			showRankList () {
 				this.$router.push({ name: 'rankList' })
-				this.SETRANK(this.rankInfo)
+				this.SET_RANK(this.rankInfo)
 			}
 		}
 	}

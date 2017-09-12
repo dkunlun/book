@@ -1,4 +1,3 @@
-export const SEARCH = 'SEARCH'
 export const BOOKDETAIL = 'BOOKDETAIL'
 export const GETSOURCE = 'GETSOURCE'
 export const GETCHAPTERLIST = 'GETCHAPTERLIST'

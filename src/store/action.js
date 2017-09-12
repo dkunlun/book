@@ -1,12 +1,6 @@
 import * as type from './mutation-types'
 import * as api from '../api/api'
 
-const search = ({ commit }, keyword) => {
-	return api.search(keyword).then((res) => {
-		commit(type.SEARCH, res.books)
-	})
-}
-
 const bookDetail = ({ commit }, id) => {
 	return api.bookDetail(id).then((res) => {
 		commit(type.BOOKDETAIL, res)
@@ -38,7 +32,6 @@ const getCategoryList = ({ commit }) => {
 }
 
 export {
-	search,
 	bookDetail,
 	getSource,
 	getChapterList,

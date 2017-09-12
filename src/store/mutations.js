@@ -1,5 +1,4 @@
 import {
-	SEARCH,
 	BOOKDETAIL,
 	GETSOURCE,
 	GETCHAPTERLIST,
@@ -15,9 +14,6 @@ import {
 } from './mutation-types'
 
 export default {
-	[SEARCH] (state, list) {
-		state.searchList = list
-	},
 	[BOOKDETAIL] (state, bookInfo) {
 		state.bookInfo = bookInfo
 	},

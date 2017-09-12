@@ -4,11 +4,11 @@ import mutations from './mutations'
 import * as type from './mutation-types'
 import * as actions from './action'
 import { getStorage } from '../utils/storage'
+import creatLocalState from '../plugins/plugin'
 
 Vue.use(Vuex)
 
 const state = {
-	searchList: [], //搜索列表
 	bookInfo: {}, //小说信息
 	sourceList: [], //书源列表
 	chapterList: [], //章节列表
@@ -27,7 +27,6 @@ const state = {
 }
 
 const getters = {
-	searchList: state => state.searchList,
 	bookInfo: state => state.bookInfo,
 	sourceList: state => state.sourceList,
 	chapterList: state => state.chapterList,
@@ -45,6 +44,7 @@ const getters = {
 
 export default new Vuex.Store({
 	state,
+	plugins: [creatLocalState()],
 	actions,
 	getters,
 	mutations

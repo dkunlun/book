@@ -40,3 +40,16 @@ function zeroFill (str1, str2) {
         str2Arr
     }
 }
+
+function sum(str1, str2) {
+    let res = '',
+        next = 0
+    str1 = str1.split(''),
+    str2 = str2.split('')
+    while (str1.length || str2.length || next) {
+        next += ~~str1.pop() + ~~str2.pop()
+        res = next % 10 + res
+        next = next > 9
+    }
+    return res.replace(/^0+/, '')
+}
